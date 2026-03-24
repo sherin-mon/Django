@@ -38,12 +38,16 @@ class AdminDashboardView(SuperuserRequiredMixin, TemplateView):
         if college_id:
             cres = cres.filter(allocated_colleges__id=college_id)
             
+        pending_cres = CREProfile.objects.filter(is_approved=False).select_related('user').order_by('-user__date_joined')
+        
         context.update({
             'total_students': Student.objects.count(),
             'total_cres': CREProfile.objects.count(),
             'total_colleges': College.objects.count(),
             'total_applications': Application.objects.count(),
             'all_cres': cres.distinct(),
+            'pending_cres': pending_cres,
+            'pending_count': pending_cres.count(),
             'all_colleges': College.objects.all(),
             'search_query': search_query,
             'selected_college': int(college_id) if college_id and college_id.isdigit() else None

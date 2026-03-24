@@ -34,6 +34,32 @@
             </div>
         </div>
 
+        <!-- Pending Approvals Alert -->
+        {% if pending_count > 0 %}
+        <div class="animate-in fade-in slide-in-from-top-4 duration-700">
+            <div
+                class="bg-amber-50 dark:bg-amber-900/10 border-2 border-amber-100 dark:border-amber-900/20 rounded-[2.5rem] p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8 group">
+                <div class="flex items-center gap-6">
+                    <div
+                        class="w-16 h-16 rounded-[1.25rem] bg-amber-100 dark:bg-amber-800/30 text-amber-600 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <i data-lucide="user-check" class="w-8 h-8"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black text-slate-900 dark:text-white mb-1">New Partner Registrations
+                        </h3>
+                        <p class="text-amber-700 dark:text-amber-400 font-medium">There are <span class="font-black">{{ pending_count }}</span> associate partners awaiting account activation.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="#partner-network"
+                        class="h-14 px-8 bg-amber-600 text-white font-black rounded-2xl flex items-center gap-2 hover:bg-amber-700 transition-all shadow-lg shadow-amber-600/20 active:scale-95">
+                        Review Now <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
         <!-- Metrics Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div
@@ -102,10 +128,16 @@
             <div class="w-full space-y-6">
                 <div
                     class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
-                    <div
-                        class="p-6 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/10 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="p-6 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/10 flex flex-col md:flex-row items-center justify-between gap-4"
+                        id="partner-network">
                         <h2 class="text-xl font-bold flex items-center gap-2">
                             Partner Network
+                            {% if pending_count > 0 %}
+                            <span
+                                class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[10px] font-black animate-pulse uppercase tracking-tighter">
+                                {{ pending_count }} Pending
+                            </span>
+                            {% endif %}
                         </h2>
 
                         <form method="get" class="flex flex-wrap items-center gap-3">
