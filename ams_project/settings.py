@@ -129,3 +129,5 @@ LOGIN_REDIRECT_URL = 'cre_dashboard'
 LOGOUT_REDIRECT_URL = 'home'
 
 
+RAZORPAY_KEY_ID = "rzp_test_SSbu6Exi5WgpL7"
+RAZORPAY_KEY_SECRET = "dCLRYjojGrplIXRWe1DFhuUx"
