@@ -247,10 +247,11 @@
 <script>
     function copyLink(elementId, btn) {
         const linkText = document.getElementById(elementId).innerText.trim();
-        navigator.clipboard.writeText(linkText).then(() => {
+
+        const showSuccess = () => {
             const originalHTML = btn.innerHTML;
             btn.innerHTML = '<i data-lucide="check-circle" class="w-4 h-4"></i> Copied';
-            lucide.createIcons(); // Re-initialize icons for the new HTML
+            lucide.createIcons();
 
             btn.classList.add('bg-emerald-600', 'text-white');
             btn.classList.remove('bg-slate-900', 'dark:bg-slate-100');
@@ -261,7 +262,34 @@
                 btn.classList.remove('bg-emerald-600', 'text-white');
                 btn.classList.add('bg-slate-900', 'dark:bg-slate-100');
             }, 2500);
-        });
+        };
+
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(linkText).then(showSuccess).catch(err => {
+                console.error('Clipboard API failed', err);
+                fallbackCopy(linkText, showSuccess);
+            });
+        } else {
+            fallbackCopy(linkText, showSuccess);
+        }
+    }
+
+    function fallbackCopy(text, callback) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        textArea.style.top = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) callback();
+        } catch (err) {
+            console.error('Fallback copy failed', err);
+        }
+        document.body.removeChild(textArea);
     }
 </script>
 {% endblock %}

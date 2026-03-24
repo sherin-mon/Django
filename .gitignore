@@ -1,3 +1,19 @@
 venv
 venv_fixed
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Django
 db.sqlite3
+
+# Environment
+.env
+
+# VS Code
+.vscode/
+
+# Mac/Linux
+.DS_Store
