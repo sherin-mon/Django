@@ -105,6 +105,28 @@
             </div>
         </footer>
     </div>
+    
+    <!-- Max File Size Restriction -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var fileInputs = document.querySelectorAll('input[type="file"]');
+            var maxSize = 1 * 1024 * 1024; // 1 MB
+            
+            fileInputs.forEach(function(input) {
+                input.addEventListener('change', function() {
+                    if (this.files && this.files.length > 0) {
+                        for (let i = 0; i < this.files.length; i++) {
+                            if (this.files[i].size > maxSize) {
+                                alert('Maximum file size allowed is 1 MB. Please select a smaller file.');
+                                this.value = ''; // clear the input
+                                break;
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

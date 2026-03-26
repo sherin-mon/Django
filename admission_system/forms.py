@@ -44,6 +44,17 @@ class StudentAdmissionForm(forms.ModelForm):
             'mother_name', 'mother_mobile', 'mother_occupation',
             'guardian_name', 'guardian_mobile', 'preferred_contact'
         ]
+        labels = {
+            'father_name': '𝐅𝐚𝐭𝐡𝐞𝐫 𝐧𝐚𝐦𝐞:',
+            'father_mobile': '𝐅𝐚𝐭𝐡𝐞𝐫 𝐦𝐨𝐛𝐢𝐥𝐞 𝐧𝐮𝐦𝐛𝐞𝐫 :',
+            'father_occupation': '𝐅𝐚𝐭𝐡𝐞𝐫 𝐨𝐜𝐜𝐮𝐩𝐚𝐭𝐢𝐨𝐧:',
+            'mother_name': '𝐌𝐨𝐭𝐡𝐞𝐫 𝐧𝐚𝐦𝐞 :',
+            'mother_mobile': '𝐌𝐨𝐭𝐡𝐞𝐫 𝐦𝐨𝐛𝐢𝐥𝐞 𝐧𝐮𝐦𝐛𝐞𝐫 :',
+            'mother_occupation': '𝐌𝐨𝐭𝐡𝐞𝐫 𝐨𝐜𝐜𝐮𝐩𝐚𝐭𝐢𝐨𝐧:',
+            'guardian_name': '𝐆𝐚𝐫𝐝𝐢𝐚𝐧 𝐧𝐚𝐦𝐞:',
+            'guardian_mobile': '𝐆𝐚𝐫𝐝𝐢𝐚𝐧 𝐦𝐨𝐛𝐢𝐥𝐞 𝐧𝐮𝐦𝐛𝐞𝐫 :',
+            'preferred_contact': '𝐏𝐫𝐞𝐟𝐟𝐞𝐫𝐞𝐬 𝐜𝐨𝐧𝐭𝐚𝐜𝐭 :',
+        }
         widgets = {
             'dob': forms.DateInput(attrs={'type': 'date'}),
             'permanent_address': forms.Textarea(attrs={'rows': 2}),
@@ -57,7 +68,56 @@ class StudentAdmissionForm(forms.ModelForm):
             self.fields['course'].queryset = college.courses.all()
         
         # Add Tailwind classes to all fields
-        for field in self.fields.values():
+        for field_name, field in self.fields.items():
             field.widget.attrs.update({
                 'class': 'w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all font-medium placeholder-slate-400'
+            })
+            if field.required:
+                field.widget.attrs['required'] = 'required'
+
+        # Custom placeholders for family profile
+        custom_placeholders = {
+            'father_name': '𝐅𝐚𝐭𝐡𝐞𝐫 𝐧𝐚𝐦𝐞:',
+            'father_mobile': '𝐅𝐚𝐭𝐡𝐞𝐫 𝐦𝐨𝐛𝐢𝐥𝐞 𝐧𝐮𝐦𝐛𝐞𝐫 :',
+            'father_occupation': '𝐅𝐚𝐭𝐡𝐞𝐫 𝐨𝐜𝐜𝐮𝐩𝐚𝐭𝐢𝐨𝐧:',
+            'mother_name': '𝐌𝐨𝐭𝐡𝐞𝐫 𝐧𝐚𝐦𝐞 :',
+            'mother_mobile': '𝐌𝐨𝐭𝐡𝐞𝐫 𝐦𝐨𝐛𝐢𝐥𝐞 𝐧𝐮𝐦𝐛𝐞𝐫 :',
+            'mother_occupation': '𝐌𝐨𝐭𝐡𝐞𝐫 𝐨𝐜𝐜𝐮𝐩𝐚𝐭𝐢𝐨𝐧:',
+            'guardian_name': '𝐆𝐚𝐫𝐝𝐢𝐚𝐧 𝐧𝐚𝐦𝐞:',
+            'guardian_mobile': '𝐆𝐚𝐫𝐝𝐢𝐚𝐧 𝐦𝐨𝐛𝐢𝐥𝐞 𝐧𝐮𝐦𝐛𝐞𝐫 :',
+            'preferred_contact': '𝐏𝐫𝐞𝐟𝐟𝐞𝐫𝐞𝐬 𝐜𝐨𝐧𝐭𝐚𝐜𝐭 :',
+        }
+        for field_name, placeholder_text in custom_placeholders.items():
+            if field_name in self.fields:
+                self.fields[field_name].widget.attrs['placeholder'] = placeholder_text
+            
+        # Specific frontend validations
+        name_pattern = "^[A-Za-z\\s]+$"
+        name_title = "Only letters and spaces are allowed"
+        for field_name in ['name', 'father_name', 'mother_name', 'guardian_name']:
+            if field_name in self.fields:
+                self.fields[field_name].widget.attrs.update({
+                    'pattern': name_pattern,
+                    'title': name_title,
+                    'minlength': '3'
+                })
+
+        phone_pattern = "^\\d{10}$"
+        phone_title = "Enter a valid 10-digit phone number"
+        for field_name in ['phone', 'father_mobile', 'mother_mobile', 'guardian_mobile']:
+            if field_name in self.fields:
+                self.fields[field_name].widget.attrs.update({
+                    'pattern': phone_pattern,
+                    'title': phone_title,
+                    'minlength': '10',
+                    'maxlength': '10',
+                    'type': 'tel'
+                })
+
+        if 'aadhar_number' in self.fields:
+            self.fields['aadhar_number'].widget.attrs.update({
+                'pattern': "^\\d{12}$",
+                'title': "Enter a valid 12-digit Aadhar number",
+                'minlength': '12',
+                'maxlength': '12'
             })

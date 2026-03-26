@@ -23,8 +23,17 @@
                 Excellence in Education Since 2002
             </div>
 
+            <!-- College Logo -->
+            <div class="mb-8 mx-auto w-32 h-32 md:w-48 md:h-48 rounded-[3rem] border-8 border-white/20 shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(255,215,0,0.15)] overflow-hidden bg-white/10 backdrop-blur-md flex items-center justify-center animate-in zoom-in duration-700 transform hover:rotate-6 transition-all">
+                {% if college.logo_url %}
+                <img src="{{ college.logo_url }}" alt="{{ college.name }} Logo" class="w-full h-full object-cover">
+                {% else %}
+                <i data-lucide="graduation-cap" class="w-16 h-16 text-[#FFD700]"></i>
+                {% endif %}
+            </div>
+
             <h1
-                class="text-white text-6xl md:text-[10rem] font-black leading-[0.85] tracking-tighter mb-12 animate-in slide-in-from-bottom-12 duration-700">
+                class="text-white text-6xl md:text-[8rem] lg:text-[10rem] font-black leading-[0.85] tracking-tighter mb-12 animate-in slide-in-from-bottom-12 duration-700">
                 Al Azhar <span class="text-[#FFD700] italic">Ecosystem</span><br />of Learning
             </h1>
 

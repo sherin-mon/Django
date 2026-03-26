@@ -133,25 +133,87 @@ class AdminCollegeDetailView(SuperuserRequiredMixin, TemplateView):
         })
         return context
 
+class AdminCourseStudentListView(SuperuserRequiredMixin, TemplateView):
+    template_name = 'admission_system/admin_course_student_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        course_id = self.kwargs.get('course_id')
+        course = get_object_or_404(Course, id=course_id)
+        
+        applications = Application.objects.filter(course=course).select_related('student', 'college', 'referred_by__user').order_by('-applied_at')
+        
+        context.update({
+            'course': course,
+            'college': course.college,
+            'applications': applications,
+            'total_enrollments': applications.count(),
+            'successful_enrollments': applications.filter(payment_status='Success').count(),
+            'pending_enrollments': applications.filter(payment_status='Pending').count(),
+            'is_dashboard': True
+        })
+        return context
+
+class AdminStudentDetailView(SuperuserRequiredMixin, TemplateView):
+    template_name = 'admission_system/admin_student_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        app_id = self.kwargs.get('app_id')
+        application = get_object_or_404(Application.objects.select_related('student', 'college', 'course', 'referred_by__user'), id=app_id)
+        
+        context.update({
+            'app': application,
+            'student': application.student,
+            'is_dashboard': True
+        })
+        return context
+
 class AdminExportCSVView(SuperuserRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         export_type = request.GET.get('type', 'students')
+        course_id = request.GET.get('course_id')
         
         if export_type == 'students':
-            response = HttpResponse(content_type='text/csv')
-            response['Content-Disposition'] = 'attachment; filename="students_report.csv"'
-            writer = csv.writer(response)
-            writer.writerow(['Name', 'Email', 'Phone', 'Applied College', 'Applied Course', 'Referred By'])
-            
             apps = Application.objects.select_related('student', 'college', 'course', 'referred_by__user').all()
+            
+            response = HttpResponse(content_type='text/csv')
+            if course_id:
+                apps = apps.filter(course_id=course_id)
+                course_name = apps.first().course.name if apps.exists() else 'students'
+                safe_name = "".join([c for c in course_name if c.isalpha() or c.isdigit() or c==' ']).rstrip()
+                filename = f"{safe_name.replace(' ', '_').lower()}_enrollments.csv"
+                response['Content-Disposition'] = f'attachment; filename="{filename}"'
+            else:
+                response['Content-Disposition'] = 'attachment; filename="students_report.csv"'
+                
+            writer = csv.writer(response)
+            writer.writerow([
+                'Name', 'Email', 'Phone', 'DOB', 'Gender', 'Aadhar Number', 'Blood Group',
+                'Category', 'City', 'State', 'Father Name', 'Father Mobile', 'Applied College', 
+                'Applied Course', 'Addon Course', 'Referred By', 'Payment Status', 'Applied Date'
+            ])
+            
             for app in apps:
                 writer.writerow([
                     app.student.name, 
                     app.student.email, 
                     app.student.phone, 
+                    app.student.dob,
+                    app.student.gender,
+                    app.student.aadhar_number,
+                    app.student.blood_group,
+                    app.student.category,
+                    app.student.city,
+                    app.student.state,
+                    app.student.father_name,
+                    app.student.father_mobile,
                     app.college.name, 
                     app.course.name, 
-                    app.referred_by.user.username if app.referred_by else 'Direct'
+                    app.addon_course,
+                    app.referred_by.user.username if app.referred_by else 'Direct',
+                    app.payment_status,
+                    app.applied_at.strftime('%Y-%m-%d')
                 ])
             return response
         

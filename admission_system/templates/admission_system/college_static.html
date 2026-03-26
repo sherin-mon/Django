@@ -429,6 +429,23 @@
 
 <script>
     function nextStep(step) {
+        const currentStep = parseInt(document.getElementById('current-step-num').innerText, 10);
+        
+        // Validate before moving forward
+        if (step > currentStep) {
+            const currentStepDiv = document.getElementById('step-' + currentStep);
+            const inputs = currentStepDiv.querySelectorAll('input, select, textarea');
+            let isValid = true;
+            for (let i = 0; i < inputs.length; i++) {
+                if (!inputs[i].checkValidity()) {
+                    inputs[i].reportValidity();
+                    isValid = false;
+                    break;
+                }
+            }
+            if (!isValid) return;
+        }
+
         document.getElementById('step-1').classList.add('hidden');
         document.getElementById('step-2').classList.add('hidden');
         document.getElementById('step-3').classList.add('hidden');
