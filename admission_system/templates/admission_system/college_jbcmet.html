@@ -1,0 +1,667 @@
+{% extends 'admission_system/college_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="bg-white dark:bg-slate-950 font-sans selection:bg-[#1A237E] selection:text-[#FF6B35]">
+
+    <!-- ═══ HERO ═══ -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
+        <!-- Layered background -->
+        <div class="absolute inset-0 bg-[#0D1554]">
+            <div class="absolute inset-0 bg-cover bg-center opacity-20"
+                style="background-image:url('https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')">
+            </div>
+            <!-- Gradient over image -->
+            <div class="absolute inset-0 bg-gradient-to-br from-[#1A237E] via-[#1A237E]/90 to-[#0D1554]"></div>
+            <!-- Accent glows -->
+            <div class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-[#FF6B35]/10 rounded-full blur-[120px]"></div>
+            <div class="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-[#FF6B35]/5 rounded-full blur-[80px]"></div>
+            <!-- Grid texture -->
+            <div class="absolute inset-0 opacity-[0.03]"
+                style="background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:60px 60px">
+            </div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 md:px-8 max-w-7xl mx-auto">
+            <!-- KTU / AICTE badge -->
+            <div class="inline-flex flex-wrap justify-center gap-3 mb-14 animate-in fade-in zoom-in duration-1000">
+                <span
+                    class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white text-[9px] md:text-[10px] font-black uppercase tracking-[0.35em]">
+                    <i data-lucide="award" class="w-3.5 h-3.5 text-[#FF6B35]"></i> KTU Affiliated
+                </span>
+                <span
+                    class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white text-[9px] md:text-[10px] font-black uppercase tracking-[0.35em]">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#FF6B35]"></i> AICTE Approved
+                </span>
+                <span
+                    class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#FF6B35]/20 backdrop-blur-xl border border-[#FF6B35]/40 text-[#FF6B35] text-[9px] md:text-[10px] font-black uppercase tracking-[0.35em] animate-pulse">
+                    <i data-lucide="zap" class="w-3.5 h-3.5 fill-[#FF6B35]"></i> Admissions Open 2026
+                </span>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="text-white font-black tracking-tighter leading-[0.88] mb-10 animate-in slide-in-from-bottom-16 duration-700"
+                style="font-size:clamp(3rem,10vw,8.5rem)">
+                Jai Bharath<br />
+                <span class="text-[#FF6B35]">Engineering</span><br />
+                <span class="text-white/50" style="font-size:0.55em;letter-spacing:.05em">College of Management &
+                    Technology</span>
+            </h1>
+
+            <p class="text-blue-200/70 font-semibold leading-relaxed mb-16 mx-auto animate-in fade-in slide-in-from-bottom-10 duration-1000"
+                style="max-width:50rem;font-size:clamp(1rem,2.2vw,1.375rem)">
+                Vengola, Perumbavoor, Ernakulam · Est. 2009 · Shaping engineers, managers, and technologists for a
+                dynamic world.
+            </p>
+
+            <!-- CTAs -->
+            <div
+                class="flex flex-col sm:flex-row gap-5 justify-center items-center animate-in fade-in slide-in-from-bottom-12 duration-1000">
+                <a href="#apply"
+                    class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#FF6B35] text-white font-black py-6 px-14 rounded-[1.75rem] text-xl hover:bg-[#e55a26] hover:shadow-[0_20px_60px_-10px_rgba(255,107,53,0.6)] transition-all hover:-translate-y-2 active:scale-95">
+                    Apply Now <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                </a>
+                <a href="#programs"
+                    class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white/10 backdrop-blur-xl text-white border border-white/25 font-bold py-6 px-14 rounded-[1.75rem] text-xl hover:bg-white/20 transition-all">
+                    View Programs <i data-lucide="layers" class="w-6 h-6"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Stats strip pinned at bottom -->
+        <div class="absolute bottom-0 left-0 right-0 z-10 pb-8 px-4">
+            <div
+                class="max-w-5xl mx-auto grid grid-cols-4 bg-white/10 backdrop-blur-xl rounded-[2rem] border border-white/15 text-center text-white py-7 overflow-hidden">
+                <div class="px-4 border-r border-white/10">
+                    <div class="font-black text-[#FF6B35]" style="font-size:clamp(1.75rem,4vw,2.75rem)">9</div>
+                    <div class="text-[9px] md:text-xs font-bold uppercase tracking-widest opacity-50 mt-1">
+                        B.Tech<br />Branches</div>
+                </div>
+                <div class="px-4 border-r border-white/10">
+                    <div class="font-black text-[#FF6B35]" style="font-size:clamp(1.75rem,4vw,2.75rem)">6</div>
+                    <div class="text-[9px] md:text-xs font-bold uppercase tracking-widest opacity-50 mt-1">
+                        Diploma<br />Courses</div>
+                </div>
+                <div class="px-4 border-r border-white/10">
+                    <div class="font-black text-[#FF6B35]" style="font-size:clamp(1.75rem,4vw,2.75rem)">4</div>
+                    <div class="text-[9px] md:text-xs font-bold uppercase tracking-widest opacity-50 mt-1">PG/UG
+                        Mgmt<br />Programs</div>
+                </div>
+                <div class="px-4">
+                    <div class="font-black text-[#FF6B35]" style="font-size:clamp(1.75rem,4vw,2.75rem)">15+</div>
+                    <div class="text-[9px] md:text-xs font-bold uppercase tracking-widest opacity-50 mt-1">Years
+                        of<br />Excellence</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PROGRAMS ═══ -->
+    <section class="pt-48 pb-40 px-6 md:px-16 lg:px-28" id="programs">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section header -->
+            <div class="text-center mb-24">
+                <span class="text-[#FF6B35] font-black tracking-[0.5em] uppercase text-xs block mb-5">Academic
+                    Catalogue</span>
+                <h2 class="font-black text-slate-900 dark:text-white tracking-tighter leading-none"
+                    style="font-size:clamp(2.5rem,7vw,6rem)">
+                    Programs We <span class="text-[#1A237E]">Offer</span>
+                </h2>
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="flex flex-wrap justify-center gap-3 mb-16">
+                <button onclick="filterCat('all')" id="tab-all" class="jbc-tab active">All Programs</button>
+                <button onclick="filterCat('btech')" id="tab-btech" class="jbc-tab">B.Tech Engineering</button>
+                <button onclick="filterCat('diploma')" id="tab-diploma" class="jbc-tab">Diploma</button>
+                <button onclick="filterCat('mgmt')" id="tab-mgmt" class="jbc-tab">Management</button>
+            </div>
+
+            <!-- Unified Course Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-7" id="course-grid">
+                {% for course in courses %}
+                <div class="course-card group bg-slate-50 dark:bg-slate-900 rounded-[2rem] p-8 border-2 border-transparent hover:border-[#1A237E]/20 hover:-translate-y-3 hover:shadow-xl transition-all duration-500 relative overflow-hidden"
+                     data-cat="{{ course.name|slice:'1:6' }}">
+                    <div class="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-[#1A237E]/5 group-hover:scale-150 transition-transform duration-700"></div>
+                    <div class="w-12 h-12 bg-[#1A237E] text-white rounded-xl flex items-center justify-center mb-6 shadow-md shadow-[#1A237E]/30 group-hover:rotate-6 transition-transform">
+                        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="font-black text-slate-900 dark:text-white text-lg leading-tight mb-3 group-hover:text-[#1A237E] transition-colors">
+                        {{ course.name }}
+                    </h4>
+                    <p class="text-slate-500 text-sm font-medium leading-relaxed line-clamp-2">{{ course.description }}</p>
+                    <div class="mt-6 pt-5 border-t border-slate-200 dark:border-slate-800 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#FF6B35]">
+                        <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> KTU / AICTE Approved
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    </section>
+
+    <!-- ═══ ADMISSION FORM ═══ -->
+    <section class="py-40 px-4 md:px-16 lg:px-28 bg-slate-50 dark:bg-slate-900/50" id="apply">
+        <div class="max-w-5xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-20">
+                <span class="text-[#FF6B35] font-black tracking-[0.5em] uppercase text-xs block mb-5">Online Admission
+                    Portal</span>
+                <h2 class="font-black text-slate-900 dark:text-white tracking-tighter leading-none mb-6"
+                    style="font-size:clamp(2.5rem,7vw,6rem)">
+                    Start Your<br /><span class="text-[#1A237E]">Application</span>
+                </h2>
+                <p class="text-slate-500 font-semibold text-lg max-w-2xl mx-auto">
+                    Complete all four steps to submit your application for JBCMET.
+                </p>
+            </div>
+
+            <!-- Form card -->
+            <div
+                class="bg-white dark:bg-slate-900 rounded-[3rem] shadow-[0_50px_120px_-30px_rgba(26,35,126,0.2)] border border-slate-100 dark:border-slate-800 overflow-hidden">
+
+                <!-- Step bar -->
+                <div class="bg-gradient-to-r from-[#1A237E] to-[#0D1554] px-10 py-10 md:px-20">
+                    <div class="flex items-center justify-between max-w-2xl mx-auto">
+                        <div id="step-1-btn" class="jbc-step active">1<span class="jbc-lbl">Identity</span></div>
+                        <div class="jbc-line" id="connector-1"></div>
+                        <div id="step-2-btn" class="jbc-step">2<span class="jbc-lbl">Location</span></div>
+                        <div class="jbc-line" id="connector-2"></div>
+                        <div id="step-3-btn" class="jbc-step">3<span class="jbc-lbl">Family</span></div>
+                        <div class="jbc-line" id="connector-3"></div>
+                        <div id="step-4-btn" class="jbc-step">4<span class="jbc-lbl">Documents</span></div>
+                    </div>
+                </div>
+
+                <form method="post" action="{% url 'apply_admission' college.slug cre_id %}"
+                    enctype="multipart/form-data" class="p-10 md:p-20" id="jbcmet-form">
+                    {% csrf_token %}
+
+                    {% if messages %}
+                    <div class="space-y-4 mb-12">
+                        {% for message in messages %}
+                        <div class="p-5 rounded-2xl border-2 flex items-center gap-4 font-bold text-base animate-in zoom-in
+                            {% if message.tags == 'success' %}bg-emerald-50 border-emerald-200 text-emerald-800
+                            {% else %}bg-red-50 border-red-200 text-red-800{% endif %}">
+                            <i data-lucide="{% if message.tags == 'success' %}check-circle{% else %}alert-circle{% endif %}"
+                                class="w-6 h-6 shrink-0"></i>
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Step 1: Identity -->
+                    <div id="step-1" class="step-content space-y-8">
+                        <div class="grid md:grid-cols-2 gap-7">
+                            <div class="jbc-field">
+                                <label class="jbc-label">Program of Choice</label>
+                                {{ form.course }}
+                            </div>
+                            <div class="jbc-field">
+                                <label class="jbc-label">Add-on / Elective</label>
+                                {{ form.addon_course }}
+                            </div>
+                            <div class="md:col-span-2 jbc-field">
+                                <label class="jbc-label">Full Name (as on Certificate)</label>
+                                {{ form.name }}
+                            </div>
+                            <div class="jbc-field">
+                                <label class="jbc-label">Date of Birth</label>
+                                {{ form.dob }}
+                            </div>
+                            <div class="jbc-field">
+                                <label class="jbc-label">Gender</label>
+                                {{ form.gender }}
+                            </div>
+                            <div class="jbc-field">
+                                <label class="jbc-label">Aadhar Number</label>
+                                {{ form.aadhar_number }}
+                            </div>
+                            <div class="jbc-field">
+                                <label class="jbc-label">Mobile Number</label>
+                                {{ form.phone }}
+                            </div>
+                            <div class="jbc-field">
+                                <label class="jbc-label">Email Address</label>
+                                {{ form.email }}
+                            </div>
+                            <div class="jbc-field">
+                                <label class="jbc-label">Blood Group</label>
+                                {{ form.blood_group }}
+                            </div>
+                            <div class="jbc-field">
+                                <label class="jbc-label">Category</label>
+                                {{ form.category }}
+                            </div>
+                        </div>
+                        <div class="flex justify-end pt-6">
+                            <button type="button" onclick="goToStep(2)" class="jbc-btn-primary">
+                                Location Details <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Location -->
+                    <div id="step-2" class="step-content hidden space-y-8">
+                        <div class="space-y-7">
+                            <div class="jbc-field">
+                                <label class="jbc-label">Permanent Address</label>
+                                {{ form.permanent_address }}
+                            </div>
+                            <div class="jbc-field">
+                                <label class="jbc-label">Correspondence Address</label>
+                                {{ form.correspondence_address }}
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-7">
+                                <div class="jbc-field">
+                                    <label class="jbc-label">State</label>
+                                    {{ form.state }}
+                                </div>
+                                <div class="jbc-field">
+                                    <label class="jbc-label">City / Town</label>
+                                    {{ form.city }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center pt-6">
+                            <button type="button" onclick="goToStep(1)" class="jbc-btn-back">
+                                <i data-lucide="arrow-left" class="w-5 h-5"></i> Back
+                            </button>
+                            <button type="button" onclick="goToStep(3)" class="jbc-btn-primary">
+                                Family Details <i data-lucide="users" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Family -->
+                    <div id="step-3" class="step-content hidden space-y-8">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div
+                                class="bg-slate-50 dark:bg-slate-800/40 rounded-2xl p-7 space-y-5 border border-slate-100 dark:border-slate-700">
+                                <h4
+                                    class="text-[#1A237E] font-black text-sm uppercase tracking-widest flex items-center gap-2">
+                                    <i data-lucide="user" class="w-4 h-4"></i> Father
+                                </h4>
+                                {{ form.father_name }}
+                                {{ form.father_mobile }}
+                                {{ form.father_occupation }}
+                            </div>
+                            <div
+                                class="bg-slate-50 dark:bg-slate-800/40 rounded-2xl p-7 space-y-5 border border-slate-100 dark:border-slate-700">
+                                <h4
+                                    class="text-[#1A237E] font-black text-sm uppercase tracking-widest flex items-center gap-2">
+                                    <i data-lucide="user" class="w-4 h-4"></i> Mother
+                                </h4>
+                                {{ form.mother_name }}
+                                {{ form.mother_mobile }}
+                                {{ form.mother_occupation }}
+                            </div>
+                            <div
+                                class="md:col-span-2 bg-[#1A237E]/5 dark:bg-[#1A237E]/10 rounded-2xl p-7 border-2 border-dashed border-[#1A237E]/20 space-y-5">
+                                <h4
+                                    class="text-[#1A237E] font-black text-sm uppercase tracking-widest flex items-center gap-2">
+                                    <i data-lucide="shield" class="w-4 h-4"></i> Guardian / Emergency Contact
+                                </h4>
+                                <div class="grid md:grid-cols-3 gap-5">
+                                    {{ form.guardian_name }}
+                                    {{ form.guardian_mobile }}
+                                    {{ form.preferred_contact }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center pt-6">
+                            <button type="button" onclick="goToStep(2)" class="jbc-btn-back">
+                                <i data-lucide="arrow-left" class="w-5 h-5"></i> Back
+                            </button>
+                            <button type="button" onclick="goToStep(4)" class="jbc-btn-primary">
+                                Upload Documents <i data-lucide="paperclip" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Documents -->
+                    <div id="step-4" class="step-content hidden space-y-8">
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div class="jbc-upload">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-[#1A237E]/10 text-[#1A237E] flex items-center justify-center">
+                                        <i data-lucide="file" class="w-5 h-5"></i>
+                                    </div>
+                                    <span class="font-black text-xs uppercase tracking-widest text-slate-400">10th
+                                        Marksheet</span>
+                                </div>
+                                {{ form.doc_10th }}
+                            </div>
+                            <div class="jbc-upload">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-[#1A237E]/10 text-[#1A237E] flex items-center justify-center">
+                                        <i data-lucide="file" class="w-5 h-5"></i>
+                                    </div>
+                                    <span class="font-black text-xs uppercase tracking-widest text-slate-400">11th
+                                        Marksheet</span>
+                                </div>
+                                {{ form.doc_11th }}
+                            </div>
+                            <div class="jbc-upload">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-[#1A237E]/10 text-[#1A237E] flex items-center justify-center">
+                                        <i data-lucide="file" class="w-5 h-5"></i>
+                                    </div>
+                                    <span class="font-black text-xs uppercase tracking-widest text-slate-400">12th
+                                        Marksheet</span>
+                                </div>
+                                {{ form.doc_12th }}
+                            </div>
+                            <div class="jbc-upload border-[#FF6B35]/40">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-[#FF6B35]/10 text-[#FF6B35] flex items-center justify-center">
+                                        <i data-lucide="credit-card" class="w-5 h-5"></i>
+                                    </div>
+                                    <span class="font-black text-xs uppercase tracking-widest text-[#FF6B35]">Aadhar
+                                        Document</span>
+                                </div>
+                                {{ form.doc_aadhar }}
+                            </div>
+                        </div>
+
+                        <!-- Fee Banner -->
+                        <div
+                            class="relative rounded-[2rem] overflow-hidden bg-gradient-to-r from-[#1A237E] to-[#0D1554] p-10 md:p-14 shadow-[0_25px_60px_-15px_rgba(26,35,126,0.5)]">
+                            <div
+                                class="absolute inset-0 bg-[radial-gradient(ellipse_at_right,rgba(255,107,53,0.15),transparent_70%)]">
+                            </div>
+                            <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-8">
+                                <div>
+                                    <h4 class="text-white font-black text-2xl mb-2">Registration Fee</h4>
+                                    <p class="text-blue-200/60 font-semibold">Non-refundable · Secured via Razorpay
+                                        Gateway</p>
+                                </div>
+                                <div class="text-center shrink-0">
+                                    <div class="text-[#FF6B35] font-black tracking-tighter"
+                                        style="font-size:3.5rem;line-height:1">₹1,500</div>
+                                    <div
+                                        class="text-blue-300/50 text-[10px] font-black uppercase tracking-widest mt-1 animate-pulse">
+                                        Gateway Active</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col-reverse sm:flex-row justify-between items-center gap-5 pt-6">
+                            <button type="button" onclick="goToStep(3)" class="jbc-btn-back">
+                                <i data-lucide="arrow-left" class="w-5 h-5"></i> Back
+                            </button>
+                            <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-4
+                                bg-[#FF6B35] text-white font-black py-5 px-14 rounded-[1.75rem] text-xl
+                                hover:bg-[#e55a26] hover:shadow-[0_15px_40px_-10px_rgba(255,107,53,0.6)]
+                                transition-all hover:-translate-y-1 active:scale-95">
+                                Submit Application <i data-lucide="send" class="w-6 h-6"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+        class="py-14 bg-[#0D1554] text-white/25 text-xs font-bold tracking-[0.5em] uppercase text-center border-t border-white/5">
+        Jai Bharath College of Management and Engineering Technology · JBCMET · Vengola, Perumbavoor
+    </footer>
+
+</div>
+
+<style>
+    :root {
+        --jbc-blue: #1A237E;
+        --jbc-orange: #FF6B35;
+        --jbc-dark: #0D1554;
+    }
+
+    /* ── Step indicator ── */
+    .jbc-step {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 1.25rem;
+        background: rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 900;
+        font-size: 1.25rem;
+        transition: all .6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        cursor: pointer;
+        flex-shrink: 0;
+        z-index: 2;
+    }
+
+    @media(min-width:768px) {
+        .jbc-step {
+            width: 4.5rem;
+            height: 4.5rem;
+            font-size: 1.5rem;
+            border-radius: 1.75rem;
+        }
+    }
+
+    .jbc-step.active {
+        background: var(--jbc-orange);
+        color: white;
+        transform: scale(1.25) rotate(-4deg);
+        box-shadow: 0 15px 40px -8px rgba(255, 107, 53, 0.6);
+    }
+
+    .jbc-step.completed {
+        background: rgba(255, 255, 255, 0.9);
+        color: var(--jbc-blue);
+        transform: scale(0.9);
+    }
+
+    .jbc-lbl {
+        position: absolute;
+        bottom: -2.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 9px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: .35em;
+        color: rgba(255, 255, 255, 0.35);
+        white-space: nowrap;
+        transition: all .4s;
+    }
+
+    .jbc-step.active .jbc-lbl {
+        color: var(--jbc-orange);
+        opacity: 1;
+        transform: translate(-50%, -3px);
+    }
+
+    @media(max-width:640px) {
+        .jbc-lbl {
+            display: none;
+        }
+    }
+
+    .jbc-line {
+        flex: 1;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 999px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .jbc-line::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--jbc-orange);
+        transform: translateX(-100%);
+        transition: transform .9s ease-in-out;
+    }
+
+    .jbc-line.active::after {
+        transform: translateX(0);
+    }
+
+    /* ── Form ── */
+    .jbc-field {
+        display: flex;
+        flex-direction: column;
+        gap: .4rem;
+    }
+
+    .jbc-label {
+        font-size: 10px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: .35em;
+        color: var(--jbc-blue);
+        padding-left: .5rem;
+    }
+
+    input,
+    select,
+    textarea {
+        background: #f8fafc;
+        border: 2.5px solid #e8edf5;
+        border-radius: 1.1rem;
+        padding: 1rem 1.4rem;
+        font-weight: 700;
+        font-size: 1rem;
+        width: 100%;
+        outline: none;
+        transition: all .35s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: var(--jbc-blue);
+        background: white;
+        box-shadow: 0 8px 24px -6px rgba(26, 35, 126, 0.15);
+        transform: translateY(-2px);
+    }
+
+    textarea {
+        min-height: 120px;
+    }
+
+    /* ── Buttons ── */
+    .jbc-btn-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: .65rem;
+        background: var(--jbc-blue);
+        color: white;
+        font-weight: 900;
+        padding: 1.1rem 2.75rem;
+        border-radius: 1.25rem;
+        font-size: 1.05rem;
+        box-shadow: 0 8px 24px -6px rgba(26, 35, 126, 0.4);
+        transition: all .3s;
+        width: 100%;
+    }
+
+    @media(min-width:640px) {
+        .jbc-btn-primary {
+            width: auto;
+        }
+    }
+
+    .jbc-btn-primary:hover {
+        background: var(--jbc-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 16px 36px -8px rgba(26, 35, 126, 0.5);
+    }
+
+    .jbc-btn-primary:active {
+        transform: scale(.97);
+    }
+
+    .jbc-btn-back {
+        display: inline-flex;
+        align-items: center;
+        gap: .4rem;
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: .4em;
+        color: #94a3b8;
+        transition: all .3s;
+    }
+
+    .jbc-btn-back:hover {
+        color: var(--jbc-blue);
+        transform: translateX(-5px);
+    }
+
+    /* ── Upload cards ── */
+    .jbc-upload {
+        padding: 1.75rem;
+        border: 2.5px dashed #e2e8f0;
+        border-radius: 1.75rem;
+        background: #f8fafc;
+        transition: all .4s;
+    }
+
+    .jbc-upload:hover {
+        border-color: var(--jbc-blue);
+        background: white;
+        transform: scale(1.02);
+        box-shadow: 0 10px 30px -8px rgba(26, 35, 126, 0.1);
+    }
+
+    /* ── Category tabs ── */
+    .jbc-tab {
+        font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.3em;
+        padding:.65rem 1.5rem; border-radius:1rem;
+        background:#f1f5f9; color:#94a3b8; border:2px solid transparent;
+        transition:all .3s; cursor:pointer;
+    }
+    .jbc-tab:hover { background:#e8edf5; color:#1A237E; }
+    .jbc-tab.active { background:#1A237E; color:white; box-shadow:0 8px 20px -5px rgba(26,35,126,0.4); }
+    .course-card.hidden-cat { display:none; }
+</style>
+
+<script>
+    function goToStep(step) {
+        document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+        document.getElementById('step-' + step).classList.remove('hidden');
+
+        [1, 2, 3, 4].forEach(s => {
+            const btn = document.getElementById('step-' + s + '-btn');
+            const conn = document.getElementById('connector-' + s);
+            btn.classList.remove('active', 'completed');
+            if (conn) conn.classList.remove('active');
+            if (s < step) { btn.classList.add('completed'); if (conn) conn.classList.add('active'); }
+            else if (s === step) btn.classList.add('active');
+        });
+
+        document.getElementById('apply').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function filterCat(cat) {
+        document.querySelectorAll('.jbc-tab').forEach(t => t.classList.remove('active'));
+        document.getElementById('tab-' + cat).classList.add('active');
+        document.querySelectorAll('.course-card').forEach(card => {
+            const cardCat = card.getAttribute('data-cat');
+            if (cat === 'all' || cardCat === cat) {
+                card.classList.remove('hidden-cat');
+            } else {
+                card.classList.add('hidden-cat');
+            }
+        });
+    }
+</script>
+{% endblock %}

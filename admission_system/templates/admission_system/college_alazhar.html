@@ -1,0 +1,609 @@
+{% extends 'admission_system/college_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="bg-white dark:bg-slate-950 font-sans selection:bg-[#006400] selection:text-[#FFD700]">
+    <!-- Hero Section -->
+    <section class="relative min-h-[800px] flex items-center justify-center overflow-hidden pt-20">
+        <div class="absolute inset-0 z-0 bg-slate-950">
+            <div class="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-overlay"
+                style="background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');">
+            </div>
+            <!-- Emerald & Gold Dynamic Gradient -->
+            <div class="absolute inset-0 bg-gradient-to-br from-[#006400]/80 via-[#006400]/40 to-transparent"></div>
+            <div
+                class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(255,215,0,0.1),transparent_60%)]">
+            </div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 md:px-6 max-w-6xl mx-auto">
+            <div
+                class="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white/10 backdrop-blur-3xl border border-white/20 text-white text-[10px] md:text-xs font-black uppercase tracking-[0.4em] mb-12 animate-in fade-in zoom-in duration-1000 shadow-2xl">
+                <span class="flex h-3 w-3 rounded-full bg-[#FFD700] shadow-[0_0_15px_#FFD700] animate-pulse"></span>
+                Excellence in Education Since 2002
+            </div>
+
+            <h1
+                class="text-white text-6xl md:text-[10rem] font-black leading-[0.85] tracking-tighter mb-12 animate-in slide-in-from-bottom-12 duration-700">
+                Al Azhar <span class="text-[#FFD700] italic">Ecosystem</span><br />of Learning
+            </h1>
+
+            <p
+                class="text-emerald-50 text-xl md:text-3xl max-w-5xl mx-auto mb-16 leading-relaxed font-medium opacity-90 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+                A massive academic hub in Thodupuzha, Kerala. Empowering thousands across Engineering, Medicine, Arts,
+                and Sciences through innovation and heritage.
+            </p>
+
+            <div
+                class="flex flex-col sm:flex-row gap-8 justify-center items-center animate-in fade-in slide-in-from-bottom-12 duration-1000">
+                <a class="w-full sm:w-auto bg-[#FFD700] text-[#006400] font-black py-7 px-14 rounded-[2.5rem] text-xl md:text-2xl hover:shadow-[0_30px_60px_-15px_rgba(255,215,0,0.5)] transition-all hover:-translate-y-2 active:scale-95 flex items-center justify-center gap-5"
+                    href="#apply">
+                    Secure Admission <i data-lucide="shield-check" class="w-8 h-8"></i>
+                </a>
+                <a class="w-full sm:w-auto bg-white/10 backdrop-blur-3xl text-white border border-white/30 font-black py-7 px-14 rounded-[2.5rem] text-xl md:text-2xl hover:bg-white/20 transition-all flex items-center justify-center gap-5"
+                    href="#programs">
+                    Explore Departments <i data-lucide="compass" class="w-8 h-8"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Wave Divider -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"
+                class="relative block w-full h-20 md:h-40 fill-white dark:fill-slate-950">
+                <path d="M0,0V120H1200V0C1100,50,900,100,600,100S100,50,0,0Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Institutional Scale Section -->
+    <section class="py-32 px-6 md:px-20 lg:px-40" id="programs">
+        <div class="max-w-7xl mx-auto text-center mb-32">
+            <span class="text-[#006400] font-black tracking-[0.6em] uppercase text-xs block mb-8">Diverse Academic
+                Verticals</span>
+            <h2
+                class="text-6xl md:text-8xl font-black text-slate-900 dark:text-white leading-none tracking-tighter mb-12">
+                12 Institutions. <span class="text-emerald-900/20 dark:text-emerald-100/10">Infinite</span>
+                Possibilities.
+            </h2>
+            <div class="w-48 h-2.5 bg-[#FFD700] mx-auto rounded-full"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {% for course in courses %}
+            <div
+                class="group bg-slate-50/70 dark:bg-slate-900/50 p-12 rounded-[4rem] border-2 border-transparent hover:border-[#006400]/20 transition-all duration-700 hover:shadow-4xl hover:shadow-[#006400]/5 hover:-translate-y-4 relative overflow-hidden">
+                <div
+                    class="absolute -right-20 -top-20 w-56 h-56 bg-[#FFD700]/5 rounded-full group-hover:scale-150 transition-transform duration-1000">
+                </div>
+
+                <div
+                    class="w-24 h-24 bg-[#006400] text-white rounded-[2rem] flex items-center justify-center mb-12 shadow-3xl shadow-[#006400]/30 transform group-hover:rotate-12 transition-transform duration-500">
+                    <i data-lucide="graduation-cap" class="w-12 h-12"></i>
+                </div>
+
+                <h3
+                    class="text-3xl font-black mb-6 leading-tight text-slate-900 dark:text-white group-hover:text-[#006400] transition-colors">
+                    {{ course.name }}
+                </h3>
+                <p class="text-slate-500 dark:text-slate-400 font-bold leading-relaxed text-lg mb-12 opacity-80">
+                    {{ course.description }}
+                </p>
+
+                <div
+                    class="flex items-center gap-4 text-[#006400] font-black text-xs uppercase tracking-[0.25em] border-t border-slate-200 dark:border-slate-800/50 pt-10">
+                    <i data-lucide="check-circle-2" class="w-5 h-5 text-[#FFD700]"></i> Global Recognition
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Admission Form Architecture -->
+    <section class="py-32 md:py-48 px-4 md:px-20 lg:px-40 bg-[#006400]/5 dark:bg-[#006400]/10" id="apply">
+        <div class="max-w-66xl mx-auto">
+            <div class="text-center mb-32">
+                <span class="text-[#006400] font-black tracking-[0.6em] uppercase text-xs mb-8 block">Official Group
+                    Enrollment</span>
+                <h2
+                    class="text-6xl md:text-9xl font-black text-slate-900 dark:text-white mb-10 tracking-tighter leading-none">
+                    Admission <span class="text-[#FFD700]">Portal</span>
+                </h2>
+                <p class="text-slate-500 font-bold text-2xl max-w-3xl mx-auto opacity-70">
+                    "Join the legacy of Al Azhar. Begin your professional journey across our multifaceted campus."
+                </p>
+            </div>
+
+            <!-- Multi-Step Container -->
+            <div
+                class="bg-white dark:bg-slate-900 rounded-[5rem] shadow-[0_100px_200px_-50px_rgba(0,100,0,0.2)] border border-slate-100 dark:border-slate-800 overflow-hidden">
+                <!-- Step Indicator -->
+                <div
+                    class="px-12 py-16 md:px-24 bg-slate-50/50 dark:bg-slate-800/20 border-b border-slate-100 dark:border-slate-800">
+                    <div class="flex items-center justify-between max-w-5xl mx-auto gap-4 md:gap-10">
+                        <div id="step-1-btn" class="azhar-step active">1<span class="azhar-label">Identity</span></div>
+                        <div class="azhar-line" id="connector-1"></div>
+                        <div id="step-2-btn" class="azhar-step">2<span class="azhar-label">Geographic</span></div>
+                        <div class="azhar-line" id="connector-2"></div>
+                        <div id="step-3-btn" class="azhar-step">3<span class="azhar-label">Kinship</span></div>
+                        <div class="azhar-line" id="connector-3"></div>
+                        <div id="step-4-btn" class="azhar-step">4<span class="azhar-label">Portfolio</span></div>
+                    </div>
+                </div>
+
+                <form method="post" action="{% url 'apply_admission' college.slug cre_id %}"
+                    enctype="multipart/form-data" class="p-12 md:p-24 lg:p-32" id="alazhar-form">
+                    {% csrf_token %}
+
+                    {% if messages %}
+                    <div class="space-y-6 mb-16">
+                        {% for message in messages %}
+                        <div
+                            class="p-8 rounded-[3rem] border-4 {% if message.tags == 'success' %}bg-emerald-50 text-emerald-900 border-emerald-200{% else %}bg-rose-50 text-rose-900 border-rose-200{% endif %} font-black text-xl flex items-center gap-8 animate-in zoom-in">
+                            <i data-lucide="{% if message.tags == 'success' %}check-circle{% else %}alert-circle{% endif %}"
+                                class="w-10 h-10"></i>
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Step 1: Identity -->
+                    <div id="step-1"
+                        class="step-content space-y-20 animate-in fade-in slide-in-from-right-12 duration-700">
+                        <div class="grid md:grid-cols-2 gap-16">
+                            <div class="space-y-6">
+                                <label class="field-label">Departmental Choice</label>
+                                {{ form.course }}
+                            </div>
+                            <div class="space-y-6">
+                                <label class="field-label">Specialisation Elective</label>
+                                {{ form.addon_course }}
+                            </div>
+                            <div class="md:col-span-2 space-y-6">
+                                <label class="field-label">Full Legal Identity (as per Certificate)</label>
+                                {{ form.name }}
+                            </div>
+                            <div class="space-y-6">
+                                <label class="field-label">Temporal Record (DOB)</label>
+                                {{ form.dob }}
+                            </div>
+                            <div class="space-y-6">
+                                <label class="field-label">Gender Designation</label>
+                                {{ form.gender }}
+                            </div>
+                            <div class="space-y-6">
+                                <label class="field-label">National Identity (Aadhar)</label>
+                                {{ form.aadhar_number }}
+                            </div>
+                            <div class="space-y-6">
+                                <label class="field-label">Connectivity (Mobile)</label>
+                                {{ form.phone }}
+                            </div>
+                            <div class="space-y-6">
+                                <label class="field-label">Digital Endpoint (Email)</label>
+                                {{ form.email }}
+                            </div>
+                            <div class="space-y-6">
+                                <label class="field-label">Vital Parameter (Blood Group)</label>
+                                {{ form.blood_group }}
+                            </div>
+                            <div class="space-y-6">
+                                <label class="field-label">Secular Classification</label>
+                                {{ form.category }}
+                            </div>
+                        </div>
+                        <div class="pt-20 border-t border-slate-100 flex justify-end">
+                            <button type="button" onclick="goToStep(2)"
+                                class="w-full md:w-auto h-28 px-20 bg-[#006400] text-white font-black rounded-[3rem] shadow-4xl shadow-[#006400]/40 hover:scale-[1.04] active:scale-95 transition-all flex items-center justify-center gap-8 text-2xl">
+                                Geometric Location <i data-lucide="map" class="w-8 h-8 font-bold"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Spatial Record -->
+                    <div id="step-2"
+                        class="step-content hidden space-y-20 animate-in fade-in slide-in-from-right-12 duration-700">
+                        <div class="space-y-16">
+                            <div class="space-y-8">
+                                <label class="field-label">Permanent Domicile</label>
+                                {{ form.permanent_address }}
+                            </div>
+                            <div class="space-y-8">
+                                <label class="field-label">Correspondence Nexus</label>
+                                {{ form.correspondence_address }}
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-16">
+                                <div class="space-y-6">
+                                    <label class="field-label">State Jurisdiction</label>
+                                    {{ form.state }}
+                                </div>
+                                <div class="space-y-6">
+                                    <label class="field-label">City/Town Collective</label>
+                                    {{ form.city }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-20 border-t border-slate-100 flex justify-between items-center gap-10">
+                            <button type="button" onclick="goToStep(1)" class="back-link">
+                                <i data-lucide="move-left" class="w-8 h-8 opacity-50"></i> Previous
+                            </button>
+                            <button type="button" onclick="goToStep(3)"
+                                class="w-full md:w-auto h-28 px-20 bg-[#006400] text-white font-black rounded-[3rem] shadow-4xl shadow-[#006400]/40 hover:scale-[1.04] transition-all flex items-center justify-center gap-8 text-2xl">
+                                Kinship Bonds <i data-lucide="users" class="w-8 h-8"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Kinship Nexus -->
+                    <div id="step-3"
+                        class="step-content hidden space-y-20 animate-in fade-in slide-in-from-right-12 duration-700">
+                        <div class="grid md:grid-cols-2 gap-16">
+                            <div
+                                class="p-12 rounded-[4.5rem] bg-emerald-50/50 dark:bg-emerald-900/10 border-2 border-emerald-100 dark:border-emerald-800/30 space-y-10">
+                                <h4
+                                    class="text-2xl font-black uppercase tracking-widest text-[#006400] flex items-center gap-4">
+                                    <i data-lucide="user-circle" class="w-7 h-7"></i> Paternal Record
+                                </h4>
+                                {{ form.father_name }}
+                                {{ form.father_mobile }}
+                                {{ form.father_occupation }}
+                            </div>
+                            <div
+                                class="p-12 rounded-[4.5rem] bg-emerald-50/50 dark:bg-emerald-900/10 border-2 border-emerald-100 dark:border-emerald-800/30 space-y-10">
+                                <h4
+                                    class="text-2xl font-black uppercase tracking-widest text-[#006400] flex items-center gap-4">
+                                    <i data-lucide="user-circle" class="w-7 h-7"></i> Maternal Record
+                                </h4>
+                                {{ form.mother_name }}
+                                {{ form.mother_mobile }}
+                                {{ form.mother_occupation }}
+                            </div>
+                            <div
+                                class="md:col-span-2 p-16 rounded-[4.5rem] bg-[#FFD700]/10 border-4 border-dashed border-[#FFD700]/30 space-y-12 shadow-inner">
+                                <h4
+                                    class="text-2xl font-black uppercase tracking-widest text-[#BA8E23] flex items-center gap-5">
+                                    <i data-lucide="anchor" class="w-8 h-8"></i> Guardian Nexus & Contact Hierarchy
+                                </h4>
+                                <div class="grid md:grid-cols-3 gap-10">
+                                    {{ form.guardian_name }}
+                                    {{ form.guardian_mobile }}
+                                    {{ form.preferred_contact }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-20 border-t border-slate-100 flex justify-between items-center gap-10">
+                            <button type="button" onclick="goToStep(2)" class="back-link">
+                                <i data-lucide="move-left" class="w-8 h-8 opacity-50"></i> Previous
+                            </button>
+                            <button type="button" onclick="goToStep(4)"
+                                class="w-full md:w-auto h-28 px-20 bg-[#006400] text-white font-black rounded-[3rem] shadow-4xl shadow-[#006400]/40 hover:scale-[1.04] transition-all flex items-center justify-center gap-8 text-2xl">
+                                Academic Portfolio <i data-lucide="briefcase" class="w-8 h-8"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Academic Vault -->
+                    <div id="step-4"
+                        class="step-content hidden space-y-20 animate-in fade-in slide-in-from-right-12 duration-700">
+                        <div class="grid md:grid-cols-2 gap-12">
+                            <div class="azhar-upload-card">
+                                <div class="flex items-center gap-5 mb-8">
+                                    <div
+                                        class="w-16 h-16 rounded-3xl bg-[#006400]/10 text-[#006400] flex items-center justify-center shadow-lg">
+                                        <i data-lucide="file-text" class="w-8 h-8"></i>
+                                    </div>
+                                    <span
+                                        class="font-black text-sm uppercase tracking-widest text-emerald-900/60">Secondary
+                                        Artifact (10th)</span>
+                                </div>
+                                {{ form.doc_10th }}
+                            </div>
+                            <div class="azhar-upload-card">
+                                <div class="flex items-center gap-5 mb-8">
+                                    <div
+                                        class="w-16 h-16 rounded-3xl bg-[#006400]/10 text-[#006400] flex items-center justify-center shadow-lg">
+                                        <i data-lucide="file-text" class="w-8 h-8"></i>
+                                    </div>
+                                    <span
+                                        class="font-black text-sm uppercase tracking-widest text-emerald-900/60">Preparatory
+                                        Artifact (11th)</span>
+                                </div>
+                                {{ form.doc_11th }}
+                            </div>
+                            <div class="azhar-upload-card">
+                                <div class="flex items-center gap-5 mb-8">
+                                    <div
+                                        class="w-16 h-16 rounded-3xl bg-[#006400]/10 text-[#006400] flex items-center justify-center shadow-lg">
+                                        <i data-lucide="file-text" class="w-8 h-8"></i>
+                                    </div>
+                                    <span
+                                        class="font-black text-sm uppercase tracking-widest text-emerald-900/60">Senior
+                                        Record (12th)</span>
+                                </div>
+                                {{ form.doc_12th }}
+                            </div>
+                            <div class="azhar-upload-card border-[#FFD700]/40">
+                                <div class="flex items-center gap-5 mb-8">
+                                    <div
+                                        class="w-16 h-16 rounded-3xl bg-[#FFD700]/10 text-[#BA8E23] flex items-center justify-center shadow-lg">
+                                        <i data-lucide="id-card" class="w-8 h-8"></i>
+                                    </div>
+                                    <span class="font-black text-sm uppercase tracking-widest text-[#BA8E23]">National
+                                        Identity Dossier</span>
+                                </div>
+                                {{ form.doc_aadhar }}
+                            </div>
+                        </div>
+
+                        <!-- Enrollment Settlement Banner -->
+                        <div
+                            class="relative bg-[#006400] p-20 rounded-[5rem] overflow-hidden group shadow-[0_50px_100px_-20px_rgba(0,100,0,0.4)]">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-[#FFD700]/20 to-transparent"></div>
+                            <div
+                                class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-16 text-center md:text-left">
+                                <div class="space-y-6">
+                                    <h4 class="text-5xl font-black text-white leading-none tracking-tight">
+                                        Administrative Settlement</h4>
+                                    <p class="text-emerald-100/70 font-bold text-2xl leading-relaxed">
+                                        Application processing fee of <span class="text-[#FFD700]">₹1,500</span> is
+                                        mandatory.<br />
+                                        Secured via encrypted institutional gateway.
+                                    </p>
+                                </div>
+                                <div class="shrink-0 space-y-4">
+                                    <div class="text-white text-8xl font-black tracking-tighter shadow-text">₹1,500
+                                    </div>
+                                    <div
+                                        class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/10 text-[#FFD700] text-xs font-black uppercase tracking-widest shadow-2xl animate-bounce">
+                                        <i data-lucide="zap" class="w-4 h-4 fill-[#FFD700]"></i> Ready
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-20 border-t border-slate-100 flex justify-between items-center gap-10">
+                            <button type="button" onclick="goToStep(3)" class="back-link">
+                                <i data-lucide="move-left" class="w-8 h-8 opacity-50"></i> Previous
+                            </button>
+                            <button type="submit"
+                                class="w-full md:w-auto h-32 px-24 bg-[#FFD700] text-[#006400] font-black rounded-[4rem] shadow-[0_40px_80px_-20px_rgba(255,215,0,0.6)] hover:scale-[1.06] active:scale-95 transition-all flex items-center justify-center gap-10 text-4xl border-x-8 border-white/20 uppercase tracking-tighter">
+                                EXECUTE ENROLLMENT <i data-lucide="send-to-back" class="w-12 h-12"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Footer -->
+    <footer
+        class="py-32 bg-slate-950 text-white/20 text-sm font-black tracking-[0.8em] text-center uppercase border-t border-white/5">
+        Al Azhar Group of Institutions • Legacy of Leadership
+    </footer>
+</div>
+
+<style>
+    :root {
+        --azhar-emerald: #006400;
+        --azhar-gold: #FFD700;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--azhar-emerald);
+    }
+
+    .azhar-step {
+        width: 4rem;
+        height: 4rem;
+        aspect-ratio: 1;
+        border-radius: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        font-size: 1.5rem;
+        position: relative;
+        transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        background: #f1f5f9;
+        color: #ccd6e0;
+        cursor: pointer;
+        z-index: 20;
+    }
+
+    @media (min-width: 768px) {
+        .azhar-step {
+            width: 5.5rem;
+            height: 5.5rem;
+            font-size: 2rem;
+            border-radius: 2.5rem;
+        }
+    }
+
+    .azhar-step.active {
+        background: var(--azhar-emerald) !important;
+        color: white !important;
+        transform: scale(1.3) rotate(-3deg);
+        box-shadow: 0 30px 60px -15px rgba(0, 100, 0, 0.4);
+    }
+
+    .azhar-step.completed {
+        background: var(--azhar-gold) !important;
+        color: white !important;
+        transform: scale(0.9);
+    }
+
+    .azhar-label {
+        position: absolute;
+        bottom: -3.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.4em;
+        color: #94a3b8;
+        white-space: nowrap;
+        opacity: 0.4;
+        transition: all 0.5s;
+    }
+
+    .azhar-step.active .azhar-label {
+        color: var(--azhar-emerald);
+        opacity: 1;
+        transform: translate(-50%, -10px);
+    }
+
+    .azhar-line {
+        height: 8px;
+        flex: 1;
+        background: #f1f5f9;
+        border-radius: 999px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .azhar-line::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--azhar-emerald);
+        transform: translateX(-100%);
+        transition: transform 1.2s ease-in-out;
+    }
+
+    .azhar-line.active::after {
+        transform: translateX(0);
+    }
+
+    .field-label {
+        display: block;
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.4em;
+        color: var(--azhar-emerald);
+        margin-left: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    input,
+    select,
+    textarea {
+        background: #f8fafc;
+        border: 4px solid #f1f5f9;
+        border-radius: 2rem;
+        padding: 1.75rem 2rem;
+        font-weight: 800;
+        font-size: 1.1rem;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        width: 100%;
+        outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        background: white;
+        border-color: var(--azhar-emerald);
+        transform: translateY(-6px) scale(1.01);
+        box-shadow: 0 25px 50px -12px rgba(0, 100, 0, 0.15);
+    }
+
+    textarea {
+        min-height: 180px;
+    }
+
+    .back-link {
+        font-size: 12px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.5em;
+        color: #94a3b8;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        transition: all 0.4s;
+    }
+
+    .back-link:hover {
+        color: var(--azhar-emerald);
+        transform: translateX(-10px);
+    }
+
+    .azhar-upload-card {
+        padding: 3rem;
+        border: 4px dashed #e2e8f0;
+        border-radius: 4rem;
+        background: #f8fafc/50;
+        transition: all 0.6s;
+    }
+
+    .azhar-upload-card:hover {
+        border-color: var(--azhar-emerald);
+        background: white;
+        transform: perspective(1000px) rotateX(2deg);
+        box-shadow: 0 40px 80px -20px rgba(0, 100, 0, 0.05);
+    }
+
+    .shadow-text {
+        text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 640px) {
+        .azhar-label {
+            display: none;
+        }
+
+        .azhar-line {
+            margin: 0 0.25rem;
+        }
+
+        .azhar-step {
+            width: 3.5rem;
+            height: 3.5rem;
+            font-size: 1.25rem;
+        }
+    }
+</style>
+
+<script>
+    function goToStep(step) {
+        // Hide all contents
+        document.querySelectorAll('.step-content').forEach(el => {
+            el.classList.add('hidden');
+            el.classList.remove('animate-in');
+        });
+
+        // Show target step with animation
+        const target = document.getElementById('step-' + step);
+        target.classList.remove('hidden');
+        setTimeout(() => target.classList.add('animate-in'), 10);
+
+        // Dynamic Indicator Logic
+        [1, 2, 3, 4].forEach(s => {
+            const badge = document.getElementById('step-' + s + '-btn');
+            const link = document.getElementById('connector-' + s);
+
+            badge.classList.remove('active', 'completed');
+            if (link) link.classList.remove('active');
+
+            if (s < step) {
+                badge.classList.add('completed');
+                if (link) link.classList.add('active');
+            } else if (s === step) {
+                badge.classList.add('active');
+            }
+        });
+
+        // Smooth navigation to anchor
+        document.getElementById('apply').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Auto-initialize Lucide for dynamic reveals
+    document.addEventListener('DOMContentLoaded', () => {
+        lucide.createIcons();
+    });
+</script>
+{% endblock %}

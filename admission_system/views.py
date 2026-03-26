@@ -50,7 +50,8 @@ class AdminDashboardView(SuperuserRequiredMixin, TemplateView):
             'pending_count': pending_cres.count(),
             'all_colleges': College.objects.all(),
             'search_query': search_query,
-            'selected_college': int(college_id) if college_id and college_id.isdigit() else None
+            'selected_college': int(college_id) if college_id and college_id.isdigit() else None,
+            'is_dashboard': True
         })
         return context
 
@@ -96,6 +97,7 @@ class AdminCREDetailView(SuperuserRequiredMixin, TemplateView):
             'total_referrals': referrals.count(),
             'successful_referrals': referrals.filter(payment_status='Success').count(),
             'pending_referrals': referrals.filter(payment_status='Pending').count(),
+            'is_dashboard': True
         })
         return context
 
@@ -109,6 +111,7 @@ class AdminCollegeListView(SuperuserRequiredMixin, TemplateView):
             course_count=Count('courses', distinct=True)
         )
         context['colleges'] = colleges
+        context['is_dashboard'] = True
         return context
 
 class AdminCollegeDetailView(SuperuserRequiredMixin, TemplateView):
@@ -126,6 +129,7 @@ class AdminCollegeDetailView(SuperuserRequiredMixin, TemplateView):
             'college': college,
             'courses': courses,
             'total_students': Application.objects.filter(college=college).count(),
+            'is_dashboard': True
         })
         return context
 
@@ -236,7 +240,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             'referrals': referrals,
             'total_referrals': referrals.count(),
             'base_url': self.request.build_absolute_uri('/')[:-1],
-            'is_cre': True
+            'is_cre': True,
+            'is_dashboard': True
         })
         return context
 

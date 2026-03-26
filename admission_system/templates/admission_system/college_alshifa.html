@@ -1,0 +1,585 @@
+{% extends 'admission_system/college_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="bg-white dark:bg-slate-950 font-sans selection:bg-secondary selection:text-white">
+    <!-- Hero Section -->
+    <section class="relative min-h-[750px] flex items-center justify-center overflow-hidden pt-20">
+        <div class="absolute inset-0 z-0 bg-slate-950">
+            <div class="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-overlay"
+                style="background-image: url('https://images.unsplash.com/photo-1541339907198-e08756ebafe3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');">
+            </div>
+            <!-- Purple & Gold Dynamic Gradient -->
+            <div class="absolute inset-0 bg-gradient-to-br from-[#4B367C]/80 via-[#4B367C]/40 to-transparent"></div>
+            <div
+                class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(186,142,35,0.15),transparent_60%)]">
+            </div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 md:px-6 max-w-6xl mx-auto">
+            <div
+                class="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white/10 backdrop-blur-2xl border border-white/20 text-white text-[10px] md:text-xs font-black uppercase tracking-[0.3em] mb-10 animate-in fade-in zoom-in duration-1000 shadow-2xl">
+                <span class="flex h-2.5 w-2.5 rounded-full bg-secondary shadow-[0_0_15px_#BA8E23] animate-pulse"></span>
+                Admissions Open 2026-27
+            </div>
+
+            <h1
+                class="text-white text-6xl md:text-9xl font-black leading-[0.9] tracking-tighter mb-10 animate-in slide-in-from-bottom-12 duration-700">
+                Unlock Your <span class="text-secondary italic">Potential</span><br />at Al Shifa
+            </h1>
+
+            <p
+                class="text-slate-100 text-xl md:text-3xl max-w-4xl mx-auto mb-12 leading-relaxed font-medium opacity-90 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+                Affiliated to the University of Calicut. Empowering future leaders through academic excellence and
+                (Hons.) specialization in Malapuram.
+            </p>
+
+            <div
+                class="flex flex-col sm:flex-row gap-6 justify-center items-center animate-in fade-in slide-in-from-bottom-12 duration-1000">
+                <a class="w-full sm:w-auto bg-secondary text-white font-black py-6 px-12 rounded-[2rem] text-xl md:text-2xl hover:shadow-[0_25px_50px_-15px_rgba(186,142,35,0.5)] transition-all hover:-translate-y-1.5 active:scale-95 flex items-center justify-center gap-4"
+                    href="#apply">
+                    Apply Online <i data-lucide="sparkles" class="w-7 h-7"></i>
+                </a>
+                <a class="w-full sm:w-auto bg-white/10 backdrop-blur-2xl text-white border border-white/30 font-black py-6 px-12 rounded-[2rem] text-xl md:text-2xl hover:bg-white/20 transition-all flex items-center justify-center gap-4"
+                    href="#programs">
+                    Our Departments <i data-lucide="layers" class="w-7 h-7"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Decorative slant -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none"
+                class="relative block w-full h-16 md:h-32 fill-white dark:fill-slate-950">
+                <path d="M1200 120L0 120L0 0L1200 120Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Academic Highlights -->
+    <section class="py-32 px-6 md:px-20 lg:px-40" id="programs">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-24">
+                <div class="space-y-6">
+                    <span class="text-primary font-black tracking-[0.5em] uppercase text-xs block">World Class
+                        Academics</span>
+                    <h2
+                        class="text-5xl md:text-7xl font-black text-slate-900 dark:text-white leading-none tracking-tighter">
+                        Academic <span class="text-primary/30 italic">Pillars</span>
+                    </h2>
+                </div>
+                <p class="text-slate-500 font-bold text-xl max-w-md leading-relaxed">
+                    Choose from our specialized Honours programmes designed for modern industry requirements.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                {% for course in courses %}
+                <div
+                    class="group bg-slate-50/50 dark:bg-slate-900/40 p-12 rounded-[3.5rem] border-2 border-transparent hover:border-secondary/20 transition-all duration-700 hover:shadow-3xl hover:shadow-primary/5 hover:-translate-y-3 relative overflow-hidden">
+                    <div
+                        class="absolute -right-16 -top-16 w-48 h-48 bg-secondary/5 rounded-full group-hover:scale-125 transition-transform duration-1000">
+                    </div>
+
+                    <div
+                        class="w-20 h-20 bg-primary text-white rounded-3xl flex items-center justify-center mb-10 shadow-2xl shadow-primary/20 transform group-hover:rotate-12 transition-transform duration-500">
+                        <i data-lucide="graduation-cap" class="w-10 h-10"></i>
+                    </div>
+
+                    <h3
+                        class="text-3xl font-black mb-5 leading-tight text-slate-900 dark:text-white group-hover:text-primary transition-colors">
+                        {{ course.name }}
+                    </h3>
+                    <p class="text-slate-500 dark:text-slate-400 font-bold leading-relaxed text-base mb-10 opacity-80">
+                        {{ course.description }}
+                    </p>
+
+                    <div
+                        class="flex items-center gap-3 text-primary font-black text-xs uppercase tracking-[0.2em] border-t border-slate-200 dark:border-slate-800/50 pt-8">
+                        <span class="w-2 h-2 rounded-full bg-secondary"></span> University of Calicut
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Admission Form Section -->
+    <section class="py-32 md:py-48 px-4 md:px-20 lg:px-40 bg-[#4B367C]/5 dark:bg-[#4B367C]/10" id="apply">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-24">
+                <span class="text-primary font-black tracking-[0.5em] uppercase text-xs mb-8 block">Official Gate</span>
+                <h2
+                    class="text-5xl md:text-8xl font-black text-slate-900 dark:text-white mb-8 tracking-tighter leading-none">
+                    Admission <span class="text-secondary/50">2026</span>
+                </h2>
+                <div class="w-32 h-2 bg-secondary mx-auto rounded-full mb-10"></div>
+                <p class="text-slate-500 font-bold text-xl max-w-2xl mx-auto italic">
+                    "Step into a realm of innovation. Your journey to excellence starts here."
+                </p>
+            </div>
+
+            <!-- Multi-Step Navigation Card -->
+            <div
+                class="bg-white dark:bg-slate-900 rounded-[4rem] shadow-[0_80px_150px_-30px_rgba(75,54,124,0.2)] border border-slate-100 dark:border-slate-800 overflow-hidden">
+                <!-- Step Indicator -->
+                <div
+                    class="px-10 py-12 md:px-16 bg-slate-50/80 dark:bg-slate-800/40 border-b border-slate-100 dark:border-slate-800">
+                    <div class="flex items-center justify-between max-w-4xl mx-auto gap-3 md:gap-8">
+                        <div id="step-1-btn" class="acas-step active">1<span class="acas-label">Identity</span></div>
+                        <div class="acas-line" id="connector-1"></div>
+                        <div id="step-2-btn" class="acas-step">2<span class="acas-label">Location</span></div>
+                        <div class="acas-line" id="connector-2"></div>
+                        <div id="step-3-btn" class="acas-step">3<span class="acas-label">Family</span></div>
+                        <div class="acas-line" id="connector-3"></div>
+                        <div id="step-4-btn" class="acas-step">4<span class="acas-label">Review</span></div>
+                    </div>
+                </div>
+
+                <form method="post" action="{% url 'apply_admission' college.slug cre_id %}"
+                    enctype="multipart/form-data" class="p-10 md:p-20 lg:p-28" id="alshifa-form">
+                    {% csrf_token %}
+
+                    {% if messages %}
+                    <div class="space-y-4 mb-12">
+                        {% for message in messages %}
+                        <div
+                            class="p-6 rounded-[2rem] border-4 {% if message.tags == 'success' %}bg-emerald-50 text-emerald-800 border-emerald-200{% else %}bg-rose-50 text-rose-800 border-rose-200{% endif %} font-black text-lg flex items-center gap-6 animate-in zoom-in">
+                            <i data-lucide="{% if message.tags == 'success' %}check-circle{% else %}alert-circle{% endif %}"
+                                class="w-8 h-8"></i>
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Step 1: Core Details -->
+                    <div id="step-1"
+                        class="step-content space-y-16 animate-in fade-in slide-in-from-right-8 duration-700">
+                        <div class="grid md:grid-cols-2 gap-12">
+                            <div class="space-y-4">
+                                <label class="label-heading">Program Preference</label>
+                                {{ form.course }}
+                            </div>
+                            <div class="space-y-4">
+                                <label class="label-heading">Add-on Specialization</label>
+                                {{ form.addon_course }}
+                            </div>
+                            <div class="md:col-span-2 space-y-4">
+                                <label class="label-heading">Full Legal Name</label>
+                                {{ form.name }}
+                            </div>
+                            <div class="space-y-4">
+                                <label class="label-heading">Birth Date</label>
+                                {{ form.dob }}
+                            </div>
+                            <div class="space-y-4">
+                                <label class="label-heading">Gender Identity</label>
+                                {{ form.gender }}
+                            </div>
+                            <div class="space-y-4">
+                                <label class="label-heading">Aadhar Identification</label>
+                                {{ form.aadhar_number }}
+                            </div>
+                            <div class="space-y-4">
+                                <label class="label-heading">Primary Contact</label>
+                                {{ form.phone }}
+                            </div>
+                            <div class="space-y-4 text-primary">
+                                <label class="label-heading">Official Email</label>
+                                {{ form.email }}
+                            </div>
+                            <div class="space-y-4">
+                                <label class="label-heading">Blood Group</label>
+                                {{ form.blood_group }}
+                            </div>
+                            <div class="space-y-4">
+                                <label class="label-heading">Social Category</label>
+                                {{ form.category }}
+                            </div>
+                        </div>
+                        <div class="pt-16 border-t border-slate-100 flex justify-end">
+                            <button type="button" onclick="goToStep(2)"
+                                class="w-full md:w-auto h-24 px-16 bg-primary text-white font-black rounded-[2.5rem] shadow-3xl shadow-primary/40 hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-6 text-xl">
+                                Location & Residency <i data-lucide="map-pin" class="w-7 h-7"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Spatial Details -->
+                    <div id="step-2"
+                        class="step-content hidden space-y-16 animate-in fade-in slide-in-from-right-8 duration-700">
+                        <div class="space-y-12">
+                            <div class="space-y-6">
+                                <label class="label-heading">Permanent Address</label>
+                                {{ form.permanent_address }}
+                            </div>
+                            <div class="space-y-6">
+                                <label class="label-heading">Correspondence Address</label>
+                                {{ form.correspondence_address }}
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-12">
+                                <div class="space-y-4">
+                                    <label class="label-heading">State</label>
+                                    {{ form.state }}
+                                </div>
+                                <div class="space-y-4">
+                                    <label class="label-heading">City</label>
+                                    {{ form.city }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-16 border-t border-slate-100 flex justify-between items-center gap-8">
+                            <button type="button" onclick="goToStep(1)" class="back-btn">
+                                <i data-lucide="arrow-left" class="w-6 h-6"></i> Back
+                            </button>
+                            <button type="button" onclick="goToStep(3)"
+                                class="w-full md:w-auto h-24 px-16 bg-primary text-white font-black rounded-[2.5rem] shadow-3xl shadow-primary/40 hover:scale-[1.03] transition-all flex items-center justify-center gap-6 text-xl">
+                                Family Connection <i data-lucide="users-2" class="w-7 h-7"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Kinship -->
+                    <div id="step-3"
+                        class="step-content hidden space-y-16 animate-in fade-in slide-in-from-right-8 duration-700">
+                        <div class="grid md:grid-cols-2 gap-12">
+                            <div
+                                class="p-10 rounded-[3.5rem] bg-slate-50 dark:bg-slate-800/30 border-2 border-slate-100 dark:border-slate-800/50 space-y-8">
+                                <h4
+                                    class="text-xl font-black uppercase tracking-widest text-primary flex items-center gap-3">
+                                    <i data-lucide="user" class="w-5 h-5"></i> Father's Info
+                                </h4>
+                                {{ form.father_name }}
+                                {{ form.father_mobile }}
+                                {{ form.father_occupation }}
+                            </div>
+                            <div
+                                class="p-10 rounded-[3.5rem] bg-slate-50 dark:bg-slate-800/30 border-2 border-slate-100 dark:border-slate-800/50 space-y-8">
+                                <h4
+                                    class="text-xl font-black uppercase tracking-widest text-primary flex items-center gap-3">
+                                    <i data-lucide="user" class="w-5 h-5"></i> Mother's Info
+                                </h4>
+                                {{ form.mother_name }}
+                                {{ form.mother_mobile }}
+                                {{ form.mother_occupation }}
+                            </div>
+                            <div
+                                class="md:col-span-2 p-12 rounded-[3.5rem] bg-secondary/10 border-4 border-dashed border-secondary/30 space-y-10">
+                                <h4
+                                    class="text-xl font-black uppercase tracking-widest text-secondary flex items-center gap-3">
+                                    <i data-lucide="shield-check" class="w-6 h-6"></i> Guardian & Comms
+                                </h4>
+                                <div class="grid md:grid-cols-3 gap-8">
+                                    {{ form.guardian_name }}
+                                    {{ form.guardian_mobile }}
+                                    {{ form.preferred_contact }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pt-16 border-t border-slate-100 flex justify-between items-center gap-8">
+                            <button type="button" onclick="goToStep(2)" class="back-btn">
+                                <i data-lucide="arrow-left" class="w-6 h-6"></i> Back
+                            </button>
+                            <button type="button" onclick="goToStep(4)"
+                                class="w-full md:w-auto h-24 px-16 bg-primary text-white font-black rounded-[2.5rem] shadow-3xl shadow-primary/40 hover:scale-[1.03] transition-all flex items-center justify-center gap-6 text-xl">
+                                Document Vault <i data-lucide="file-check" class="w-7 h-7"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Verification -->
+                    <div id="step-4"
+                        class="step-content hidden space-y-16 animate-in fade-in slide-in-from-right-8 duration-700">
+                        <div class="grid md:grid-cols-2 gap-10">
+                            <div class="acas-file-card">
+                                <div class="flex items-center gap-4 mb-6">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shadow-inner">
+                                        <i data-lucide="file" class="w-6 h-6"></i>
+                                    </div>
+                                    <span class="font-black text-xs uppercase tracking-widest">10th Marksheet</span>
+                                </div>
+                                {{ form.doc_10th }}
+                            </div>
+                            <div class="acas-file-card">
+                                <div class="flex items-center gap-4 mb-6">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shadow-inner">
+                                        <i data-lucide="file" class="w-6 h-6"></i>
+                                    </div>
+                                    <span class="font-black text-xs uppercase tracking-widest">11th Marksheet</span>
+                                </div>
+                                {{ form.doc_11th }}
+                            </div>
+                            <div class="acas-file-card">
+                                <div class="flex items-center gap-4 mb-6">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shadow-inner">
+                                        <i data-lucide="file" class="w-6 h-6"></i>
+                                    </div>
+                                    <span class="font-black text-xs uppercase tracking-widest">12th Marksheet</span>
+                                </div>
+                                {{ form.doc_12th }}
+                            </div>
+                            <div class="acas-file-card border-[#BA8E23]/30">
+                                <div class="flex items-center gap-4 mb-6">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-secondary/10 text-secondary flex items-center justify-center shadow-inner">
+                                        <i data-lucide="fingerprint" class="w-6 h-6"></i>
+                                    </div>
+                                    <span class="font-black text-xs uppercase tracking-widest">Aadhar Document</span>
+                                </div>
+                                {{ form.doc_aadhar }}
+                            </div>
+                        </div>
+
+                        <!-- Final Submission Banner -->
+                        <div class="relative bg-primary p-16 rounded-[4rem] overflow-hidden group shadow-4xl">
+                            <div class="absolute inset-0 bg-gradient-to-r from-secondary/10 to-transparent"></div>
+                            <div
+                                class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12 text-center md:text-left">
+                                <div class="space-y-4">
+                                    <h4 class="text-4xl font-black text-white leading-none tracking-tight">Registration
+                                        Fee</h4>
+                                    <p class="text-white/60 font-bold text-xl leading-relaxed">
+                                        Amount: <span class="text-secondary">₹1,500</span> (Non-refundable)<br />
+                                        Secured by Razorpay Encryption.
+                                    </p>
+                                </div>
+                                <div class="shrink-0 space-y-2">
+                                    <div class="text-white text-7xl font-black tracking-tighter">₹1,500</div>
+                                    <div
+                                        class="text-secondary text-xs font-black uppercase tracking-[0.4em] animate-pulse">
+                                        Live Gateway ready</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-16 border-t border-slate-100 flex justify-between items-center gap-8">
+                            <button type="button" onclick="goToStep(3)" class="back-btn">
+                                <i data-lucide="arrow-left" class="w-6 h-6"></i> Back
+                            </button>
+                            <button type="submit"
+                                class="w-full md:w-auto h-28 px-20 bg-secondary text-white font-black rounded-[3rem] shadow-[0_30px_60px_-15px_rgba(186,142,35,0.6)] hover:scale-[1.05] active:scale-95 transition-all flex items-center justify-center gap-8 text-3xl border-4 border-white/20">
+                                COMPLETE ENROLLMENT <i data-lucide="check-square" class="w-10 h-10"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Footer Branding -->
+    <footer
+        class="py-24 bg-slate-950 text-white/30 text-xs font-black tracking-[0.6em] text-center uppercase border-t border-white/5">
+        Al Shifa College of Arts and Science • Shaping Global Citizens
+    </footer>
+</div>
+
+<style>
+    :root {
+        --acas-purple: #4B367C;
+        --acas-gold: #BA8E23;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--acas-purple);
+    }
+
+    .acas-step {
+        width: 3.5rem;
+        height: 3.5rem;
+        aspect-ratio: 1;
+        border-radius: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        font-size: 1.25rem;
+        position: relative;
+        transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+        background: #f1f5f9;
+        color: #94a3b8;
+        cursor: pointer;
+    }
+
+    @media (min-width: 768px) {
+        .acas-step {
+            width: 4.5rem;
+            height: 4.5rem;
+            font-size: 1.5rem;
+        }
+    }
+
+    .acas-step.active {
+        background: var(--acas-purple) !important;
+        color: white !important;
+        transform: scale(1.2) rotate(4deg);
+        box-shadow: 0 25px 50px -10px rgba(75, 54, 124, 0.4);
+    }
+
+    .acas-step.completed {
+        background: var(--acas-gold) !important;
+        color: white !important;
+        transform: scale(0.95);
+    }
+
+    .acas-label {
+        position: absolute;
+        bottom: -3rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 10px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: #94a3b8;
+        white-space: nowrap;
+        opacity: 0.5;
+        transition: all 0.4s;
+    }
+
+    .acas-step.active .acas-label {
+        color: var(--acas-purple);
+        opacity: 1;
+        transform: translate(-50%, -5px);
+    }
+
+    .acas-line {
+        height: 6px;
+        flex: 1;
+        background: #f1f5f9;
+        border-radius: 999px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .acas-line::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--acas-purple);
+        transform: translateX(-100%);
+        transition: transform 1s ease-in-out;
+    }
+
+    .acas-line.active::after {
+        transform: translateX(0);
+    }
+
+    .label-heading {
+        display: block;
+        font-size: 10px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: var(--acas-purple);
+        margin-left: 0.5rem;
+    }
+
+    input,
+    select,
+    textarea {
+        background: #f8fafc;
+        border: 3px solid #f1f5f9;
+        border-radius: 1.5rem;
+        padding: 1.5rem;
+        font-weight: 700;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        background: white;
+        border-color: var(--acas-purple);
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px -10px rgba(75, 54, 124, 0.1);
+    }
+
+    .back-btn {
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.4em;
+        color: #94a3b8;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        transition: all 0.3s;
+    }
+
+    .back-btn:hover {
+        color: var(--acas-purple);
+        transform: translateX(-5px);
+    }
+
+    .acas-file-card {
+        padding: 2.5rem;
+        border: 3px dashed #e2e8f0;
+        border-radius: 3rem;
+        background: #f8fafc;
+        transition: all 0.5s;
+    }
+
+    .acas-file-card:hover {
+        border-color: var(--acas-purple);
+        background: white;
+        transform: scale(1.02);
+    }
+
+    @media (max-width: 640px) {
+        .acas-label {
+            display: none;
+        }
+
+        .acas-line {
+            margin: 0 0.5rem;
+        }
+    }
+</style>
+
+<script>
+    function goToStep(step) {
+        // Hide all steps
+        document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+
+        // Show target step
+        document.getElementById('step-' + step).classList.remove('hidden');
+
+        // Update badges
+        [1, 2, 3, 4].forEach(s => {
+            const btn = document.getElementById('step-' + s + '-btn');
+            const connector = document.getElementById('connector-' + s);
+
+            btn.classList.remove('active', 'completed');
+            if (connector) connector.classList.remove('active');
+
+            if (s < step) {
+                btn.classList.add('completed');
+                if (connector) connector.classList.add('active');
+            } else if (s === step) {
+                btn.classList.add('active');
+            }
+        });
+
+        // Scroll to form top
+        document.getElementById('apply').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Re-initialize Lucide icons on step change
+    document.addEventListener('DOMContentLoaded', () => {
+        const observer = new MutationObserver(() => {
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        });
+
+        observer.observe(document.getElementById('alshifa-form'), {
+            childList: true,
+            subtree: true,
+            attributes: true
+        });
+    });
+</script>
+{% endblock %}

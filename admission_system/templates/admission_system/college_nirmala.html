@@ -1,0 +1,643 @@
+{% extends 'admission_system/college_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="bg-white dark:bg-slate-950 font-sans selection:bg-[#253E7D] selection:text-white">
+
+    <!-- ═══ HERO ═══ -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-24">
+        <!-- Background layers -->
+        <div class="absolute inset-0">
+            <div class="absolute inset-0 bg-slate-900">
+                <div class="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-overlay"
+                    style="background-image:url('https://images.unsplash.com/photo-1583373834259-46cc92173cb7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')">
+                </div>
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-br from-[#253E7D] via-[#253E7D]/80 to-[#1a2d5a]"></div>
+            <div
+                class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(182,227,212,0.12),transparent_65%)]">
+            </div>
+            <!-- Animated blobs -->
+            <div class="absolute top-24 right-12 w-96 h-96 bg-[#B6E3D4]/10 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-32 left-16 w-72 h-72 bg-white/5 rounded-full blur-2xl animate-pulse"
+                style="animation-delay:1.5s"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 md:px-8 max-w-7xl mx-auto">
+            <!-- Badge -->
+            <div
+                class="inline-flex items-center gap-3 px-7 py-3 rounded-full bg-white/10 backdrop-blur-2xl border border-white/20 text-white text-[10px] md:text-xs font-black uppercase tracking-[0.4em] mb-14 animate-in fade-in zoom-in duration-1000 shadow-2xl">
+                <span
+                    class="w-2.5 h-2.5 rounded-full bg-[#B6E3D4] shadow-[0_0_12px_#B6E3D4] animate-pulse shrink-0"></span>
+                Admissions Open 2026–27 · Mahatma Gandhi University
+            </div>
+
+            <!-- Headline -->
+            <h1 class="text-white font-black leading-[0.88] tracking-tighter mb-12 animate-in slide-in-from-bottom-16 duration-700"
+                style="font-size:clamp(3.5rem,11vw,9rem)">
+                Nirmala <span class="text-[#B6E3D4] italic">College</span><br />Muvattupuzha
+            </h1>
+
+            <!-- Sub -->
+            <p class="text-blue-100/80 font-semibold leading-relaxed mb-16 mx-auto animate-in fade-in slide-in-from-bottom-10 duration-1000"
+                style="max-width:52rem;font-size:clamp(1rem,2.5vw,1.5rem)">
+                A premier autonomous co-educational institution established in 1965 under the Diocese of Kothamangalam,
+                offering excellence in Arts, Science, Commerce and Management.
+            </p>
+
+            <!-- CTAs -->
+            <div
+                class="flex flex-col sm:flex-row gap-5 justify-center items-center animate-in fade-in slide-in-from-bottom-12 duration-1000">
+                <a href="#apply"
+                    class="w-full sm:w-auto inline-flex items-center justify-center gap-4 bg-white text-[#253E7D] font-black py-6 px-14 rounded-[2rem] text-xl hover:bg-[#B6E3D4] hover:shadow-[0_25px_60px_-10px_rgba(182,227,212,0.6)] transition-all hover:-translate-y-2 active:scale-95">
+                    Apply Now <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                </a>
+                <a href="#programs"
+                    class="w-full sm:w-auto inline-flex items-center justify-center gap-4 bg-white/10 backdrop-blur-xl text-white border border-white/25 font-bold py-6 px-14 rounded-[2rem] text-xl hover:bg-white/20 transition-all">
+                    Explore Programs <i data-lucide="layout-grid" class="w-6 h-6"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Stats bar -->
+        <div class="absolute bottom-0 left-0 right-0 z-10">
+            <div class="max-w-6xl mx-auto px-6 pb-10">
+                <div
+                    class="grid grid-cols-3 md:grid-cols-3 gap-0 bg-white/10 backdrop-blur-xl rounded-[2rem] border border-white/20 overflow-hidden text-white text-center py-8 md:py-10">
+                    <div class="px-6 md:px-12 border-r border-white/10">
+                        <div class="text-4xl md:text-5xl font-black text-[#B6E3D4]">60+</div>
+                        <div class="text-xs font-bold uppercase tracking-widest opacity-60 mt-1">Years of Excellence
+                        </div>
+                    </div>
+                    <div class="px-6 md:px-12 border-r border-white/10">
+                        <div class="text-4xl md:text-5xl font-black text-[#B6E3D4]">20+</div>
+                        <div class="text-xs font-bold uppercase tracking-widest opacity-60 mt-1">Programmes</div>
+                    </div>
+                    <div class="px-6 md:px-12">
+                        <div class="text-4xl md:text-5xl font-black text-[#B6E3D4]">15+</div>
+                        <div class="text-xs font-bold uppercase tracking-widest opacity-60 mt-1">Departments</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PROGRAMS ═══ -->
+    <section class="pt-48 pb-40 px-6 md:px-16 lg:px-32" id="programs">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-24">
+                <div>
+                    <span class="text-[#253E7D] font-black tracking-[0.5em] uppercase text-xs block mb-5">Academic
+                        Catalogue</span>
+                    <h2 class="font-black text-slate-900 dark:text-white leading-none tracking-tighter"
+                        style="font-size:clamp(2.5rem,7vw,6rem)">
+                        Programmes<br /><span class="text-[#253E7D]/20 dark:text-white/10">We Offer</span>
+                    </h2>
+                </div>
+                <p class="text-slate-500 font-semibold text-lg max-w-sm leading-relaxed">
+                    Choose from a rich portfolio of UG, PG, and research programmes affiliated to Mahatma Gandhi
+                    University.
+                </p>
+            </div>
+
+            <!-- Course grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                {% for course in courses %}
+                <div class="group relative bg-slate-50 dark:bg-slate-900 rounded-[2.5rem] p-9 border-2 border-transparent
+                            hover:border-[#253E7D]/20 hover:-translate-y-3 hover:shadow-2xl hover:shadow-[#253E7D]/10
+                            transition-all duration-500 overflow-hidden cursor-default">
+                    <!-- Decorative circle -->
+                    <div
+                        class="absolute -right-10 -top-10 w-36 h-36 rounded-full bg-[#B6E3D4]/20 group-hover:scale-150 transition-transform duration-700">
+                    </div>
+
+                    <div
+                        class="w-14 h-14 bg-[#253E7D] text-white rounded-2xl flex items-center justify-center mb-7 shadow-lg shadow-[#253E7D]/30 group-hover:rotate-6 transition-transform duration-500">
+                        <i data-lucide="book-open" class="w-7 h-7"></i>
+                    </div>
+
+                    <h3
+                        class="font-black text-slate-900 dark:text-white text-xl leading-tight mb-3 group-hover:text-[#253E7D] transition-colors">
+                        {{ course.name }}
+                    </h3>
+                    <p class="text-slate-500 text-sm font-medium leading-relaxed line-clamp-3">{{ course.description }}
+                    </p>
+
+                    <div
+                        class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center gap-2 text-[#253E7D] text-[10px] font-black uppercase tracking-widest">
+                        <i data-lucide="check-circle" class="w-4 h-4 text-[#B6E3D4]"></i> MG University Affiliated
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ADMISSION FORM ═══ -->
+    <section class="py-40 px-4 md:px-16 lg:px-32 bg-slate-50 dark:bg-slate-900/40" id="apply">
+        <div class="max-w-5xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-24">
+                <span class="text-[#253E7D] font-black tracking-[0.5em] uppercase text-xs block mb-6">Online
+                    Admission</span>
+                <h2 class="font-black text-slate-900 dark:text-white tracking-tighter leading-none mb-8"
+                    style="font-size:clamp(2.5rem,7vw,6rem)">
+                    Begin Your<br /><span class="text-[#253E7D]">Journey</span>
+                </h2>
+                <p class="text-slate-500 font-semibold text-xl max-w-2xl mx-auto">
+                    Complete the 4-step form below. All fields are required for a complete application.
+                </p>
+            </div>
+
+            <!-- Form card -->
+            <div
+                class="bg-white dark:bg-slate-900 rounded-[3.5rem] shadow-[0_60px_120px_-30px_rgba(37,62,125,0.18)] border border-slate-100 dark:border-slate-800 overflow-hidden">
+
+                <!-- Step indicator -->
+                <div class="bg-[#253E7D] px-10 py-12 md:px-20">
+                    <div class="flex items-center justify-between max-w-3xl mx-auto">
+
+                        <div id="step-1-btn" class="nmc-step active">1<span class="nmc-label">Identity</span></div>
+                        <div class="nmc-line" id="connector-1"></div>
+                        <div id="step-2-btn" class="nmc-step">2<span class="nmc-label">Location</span></div>
+                        <div class="nmc-line" id="connector-2"></div>
+                        <div id="step-3-btn" class="nmc-step">3<span class="nmc-label">Family</span></div>
+                        <div class="nmc-line" id="connector-3"></div>
+                        <div id="step-4-btn" class="nmc-step">4<span class="nmc-label">Documents</span></div>
+                    </div>
+                </div>
+
+                <!-- Form body -->
+                <form method="post" action="{% url 'apply_admission' college.slug cre_id %}"
+                    enctype="multipart/form-data" class="p-10 md:p-20" id="nirmala-form">
+                    {% csrf_token %}
+
+                    {% if messages %}
+                    <div class="space-y-4 mb-12">
+                        {% for message in messages %}
+                        <div class="p-6 rounded-2xl border-2 flex items-center gap-5 font-bold text-lg animate-in zoom-in
+                            {% if message.tags == 'success' %}bg-emerald-50 border-emerald-200 text-emerald-800
+                            {% else %}bg-red-50 border-red-200 text-red-800{% endif %}">
+                            <i data-lucide="{% if message.tags == 'success' %}check-circle{% else %}alert-circle{% endif %}"
+                                class="w-7 h-7 shrink-0"></i>
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- ── STEP 1: Personal Identity ── -->
+                    <div id="step-1" class="step-content space-y-10">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="nmc-field">
+                                <label class="nmc-label-text">Program of Choice</label>
+                                {{ form.course }}
+                            </div>
+                            <div class="nmc-field">
+                                <label class="nmc-label-text">Add-on Course</label>
+                                {{ form.addon_course }}
+                            </div>
+                            <div class="md:col-span-2 nmc-field">
+                                <label class="nmc-label-text">Full Name (as per certificates)</label>
+                                {{ form.name }}
+                            </div>
+                            <div class="nmc-field">
+                                <label class="nmc-label-text">Date of Birth</label>
+                                {{ form.dob }}
+                            </div>
+                            <div class="nmc-field">
+                                <label class="nmc-label-text">Gender</label>
+                                {{ form.gender }}
+                            </div>
+                            <div class="nmc-field">
+                                <label class="nmc-label-text">Aadhar Number</label>
+                                {{ form.aadhar_number }}
+                            </div>
+                            <div class="nmc-field">
+                                <label class="nmc-label-text">Mobile Number</label>
+                                {{ form.phone }}
+                            </div>
+                            <div class="nmc-field">
+                                <label class="nmc-label-text">Email Address</label>
+                                {{ form.email }}
+                            </div>
+                            <div class="nmc-field">
+                                <label class="nmc-label-text">Blood Group</label>
+                                {{ form.blood_group }}
+                            </div>
+                            <div class="nmc-field">
+                                <label class="nmc-label-text">Category</label>
+                                {{ form.category }}
+                            </div>
+                        </div>
+                        <div class="flex justify-end pt-8">
+                            <button type="button" onclick="goToStep(2)" class="nmc-btn-primary">
+                                Location Details <i data-lucide="map-pin" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ── STEP 2: Location ── -->
+                    <div id="step-2" class="step-content hidden space-y-10">
+                        <div class="space-y-8">
+                            <div class="nmc-field">
+                                <label class="nmc-label-text">Permanent Address</label>
+                                {{ form.permanent_address }}
+                            </div>
+                            <div class="nmc-field">
+                                <label class="nmc-label-text">Correspondence Address</label>
+                                {{ form.correspondence_address }}
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div class="nmc-field">
+                                    <label class="nmc-label-text">State</label>
+                                    {{ form.state }}
+                                </div>
+                                <div class="nmc-field">
+                                    <label class="nmc-label-text">City / Town</label>
+                                    {{ form.city }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center pt-8">
+                            <button type="button" onclick="goToStep(1)" class="nmc-btn-back">
+                                <i data-lucide="arrow-left" class="w-5 h-5"></i> Back
+                            </button>
+                            <button type="button" onclick="goToStep(3)" class="nmc-btn-primary">
+                                Family Details <i data-lucide="users" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ── STEP 3: Family ── -->
+                    <div id="step-3" class="step-content hidden space-y-10">
+                        <div class="grid md:grid-cols-2 gap-10">
+                            <!-- Father -->
+                            <div
+                                class="bg-slate-50 dark:bg-slate-800/40 rounded-3xl p-8 space-y-6 border border-slate-100 dark:border-slate-700">
+                                <h4
+                                    class="font-black text-[#253E7D] text-sm uppercase tracking-widest flex items-center gap-2">
+                                    <i data-lucide="user" class="w-4 h-4"></i> Father's Details
+                                </h4>
+                                {{ form.father_name }}
+                                {{ form.father_mobile }}
+                                {{ form.father_occupation }}
+                            </div>
+                            <!-- Mother -->
+                            <div
+                                class="bg-slate-50 dark:bg-slate-800/40 rounded-3xl p-8 space-y-6 border border-slate-100 dark:border-slate-700">
+                                <h4
+                                    class="font-black text-[#253E7D] text-sm uppercase tracking-widest flex items-center gap-2">
+                                    <i data-lucide="user" class="w-4 h-4"></i> Mother's Details
+                                </h4>
+                                {{ form.mother_name }}
+                                {{ form.mother_mobile }}
+                                {{ form.mother_occupation }}
+                            </div>
+                            <!-- Guardian -->
+                            <div
+                                class="md:col-span-2 bg-[#253E7D]/5 dark:bg-[#253E7D]/10 rounded-3xl p-8 border-2 border-dashed border-[#253E7D]/20 space-y-6">
+                                <h4
+                                    class="font-black text-[#253E7D] text-sm uppercase tracking-widest flex items-center gap-2">
+                                    <i data-lucide="shield" class="w-4 h-4"></i> Guardian & Emergency Contact
+                                </h4>
+                                <div class="grid md:grid-cols-3 gap-6">
+                                    {{ form.guardian_name }}
+                                    {{ form.guardian_mobile }}
+                                    {{ form.preferred_contact }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center pt-8">
+                            <button type="button" onclick="goToStep(2)" class="nmc-btn-back">
+                                <i data-lucide="arrow-left" class="w-5 h-5"></i> Back
+                            </button>
+                            <button type="button" onclick="goToStep(4)" class="nmc-btn-primary">
+                                Upload Documents <i data-lucide="paperclip" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ── STEP 4: Documents ── -->
+                    <div id="step-4" class="step-content hidden space-y-10">
+                        <div class="grid sm:grid-cols-2 gap-7">
+                            <div class="nmc-upload-card">
+                                <div class="flex items-center gap-3 mb-5">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-[#253E7D]/10 text-[#253E7D] flex items-center justify-center">
+                                        <i data-lucide="file" class="w-5 h-5"></i>
+                                    </div>
+                                    <span class="font-black text-xs uppercase tracking-widest text-slate-500">10th
+                                        Marksheet</span>
+                                </div>
+                                {{ form.doc_10th }}
+                            </div>
+                            <div class="nmc-upload-card">
+                                <div class="flex items-center gap-3 mb-5">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-[#253E7D]/10 text-[#253E7D] flex items-center justify-center">
+                                        <i data-lucide="file" class="w-5 h-5"></i>
+                                    </div>
+                                    <span class="font-black text-xs uppercase tracking-widest text-slate-500">11th
+                                        Marksheet</span>
+                                </div>
+                                {{ form.doc_11th }}
+                            </div>
+                            <div class="nmc-upload-card">
+                                <div class="flex items-center gap-3 mb-5">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-[#253E7D]/10 text-[#253E7D] flex items-center justify-center">
+                                        <i data-lucide="file" class="w-5 h-5"></i>
+                                    </div>
+                                    <span class="font-black text-xs uppercase tracking-widest text-slate-500">12th
+                                        Marksheet</span>
+                                </div>
+                                {{ form.doc_12th }}
+                            </div>
+                            <div class="nmc-upload-card border-[#B6E3D4]/60">
+                                <div class="flex items-center gap-3 mb-5">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-[#B6E3D4]/30 text-teal-600 flex items-center justify-center">
+                                        <i data-lucide="credit-card" class="w-5 h-5"></i>
+                                    </div>
+                                    <span class="font-black text-xs uppercase tracking-widest text-teal-600">Aadhar
+                                        Document</span>
+                                </div>
+                                {{ form.doc_aadhar }}
+                            </div>
+                        </div>
+
+                        <!-- Fee Banner -->
+                        <div
+                            class="relative rounded-[2.5rem] overflow-hidden bg-[#253E7D] p-12 md:p-16 shadow-[0_30px_80px_-15px_rgba(37,62,125,0.4)]">
+                            <div
+                                class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(182,227,212,0.2),transparent_60%)]">
+                            </div>
+                            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
+                                <div>
+                                    <h4 class="text-white font-black text-3xl mb-3">Registration Fee</h4>
+                                    <p class="text-blue-200/70 font-semibold text-lg">
+                                        Non-refundable processing fee · Secured via Razorpay
+                                    </p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-[#B6E3D4] font-black tracking-tighter"
+                                        style="font-size:4rem;line-height:1">₹1,500</div>
+                                    <div
+                                        class="text-blue-200/50 text-xs font-black uppercase tracking-widest mt-2 animate-pulse">
+                                        Gateway Active</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col-reverse sm:flex-row justify-between items-center gap-6 pt-8">
+                            <button type="button" onclick="goToStep(3)" class="nmc-btn-back">
+                                <i data-lucide="arrow-left" class="w-5 h-5"></i> Back
+                            </button>
+                            <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center gap-4
+                                bg-[#B6E3D4] text-[#1a2d5a] font-black py-6 px-14 rounded-[2rem] text-xl
+                                hover:bg-white hover:shadow-[0_20px_50px_-10px_rgba(37,62,125,0.4)]
+                                transition-all hover:-translate-y-1 active:scale-95">
+                                Submit Application <i data-lucide="send" class="w-6 h-6"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+        class="py-16 bg-[#1a2d5a] text-white/30 text-xs font-bold tracking-[0.5em] uppercase text-center border-t border-white/5">
+        Nirmala College, Muvattupuzha · Diocese of Kothamangalam · Est. 1965
+    </footer>
+
+</div><!-- end wrapper -->
+
+<style>
+    :root {
+        --nmc-blue: #253E7D;
+        --nmc-ice: #B6E3D4;
+        --nmc-dark: #1a2d5a;
+    }
+
+    /* ── Step indicator ── */
+    .nmc-step {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 1.25rem;
+        background: rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 900;
+        font-size: 1.25rem;
+        transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        cursor: pointer;
+        flex-shrink: 0;
+        z-index: 2;
+    }
+
+    @media(min-width:768px) {
+        .nmc-step {
+            width: 4.5rem;
+            height: 4.5rem;
+            font-size: 1.5rem;
+            border-radius: 1.75rem;
+        }
+    }
+
+    .nmc-step.active {
+        background: white;
+        color: var(--nmc-blue);
+        transform: scale(1.2) rotate(-4deg);
+        box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.3);
+    }
+
+    .nmc-step.completed {
+        background: var(--nmc-ice);
+        color: var(--nmc-dark);
+        transform: scale(0.95);
+    }
+
+    .nmc-label {
+        position: absolute;
+        bottom: -2.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 9px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: .35em;
+        color: rgba(255, 255, 255, 0.4);
+        white-space: nowrap;
+        transition: all .4s;
+    }
+
+    .nmc-step.active .nmc-label {
+        color: var(--nmc-ice);
+        opacity: 1;
+        transform: translate(-50%, -4px);
+    }
+
+    @media(max-width:640px) {
+        .nmc-label {
+            display: none;
+        }
+    }
+
+    .nmc-line {
+        flex: 1;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 999px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .nmc-line::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: var(--nmc-ice);
+        transform: translateX(-100%);
+        transition: transform .9s ease-in-out;
+    }
+
+    .nmc-line.active::after {
+        transform: translateX(0);
+    }
+
+    /* ── Form fields ── */
+    .nmc-field {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+    }
+
+    .nmc-label-text {
+        font-size: 10px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: .35em;
+        color: var(--nmc-blue);
+        padding-left: .5rem;
+    }
+
+    input,
+    select,
+    textarea {
+        background: #f8fafc;
+        border: 2.5px solid #e8edf5;
+        border-radius: 1.25rem;
+        padding: 1.1rem 1.5rem;
+        font-weight: 700;
+        font-size: 1rem;
+        width: 100%;
+        outline: none;
+        transition: all .35s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: var(--nmc-blue);
+        background: white;
+        box-shadow: 0 10px 30px -8px rgba(37, 62, 125, 0.15);
+        transform: translateY(-3px);
+    }
+
+    textarea {
+        min-height: 130px;
+    }
+
+    /* ── Buttons ── */
+    .nmc-btn-primary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: .75rem;
+        background: var(--nmc-blue);
+        color: white;
+        font-weight: 900;
+        padding: 1.25rem 3rem;
+        border-radius: 1.5rem;
+        font-size: 1.1rem;
+        transition: all .3s;
+        box-shadow: 0 10px 30px -8px rgba(37, 62, 125, 0.4);
+        width: 100%;
+    }
+
+    @media(min-width:640px) {
+        .nmc-btn-primary {
+            width: auto;
+        }
+    }
+
+    .nmc-btn-primary:hover {
+        background: var(--nmc-dark);
+        transform: translateY(-3px);
+        box-shadow: 0 20px 40px -10px rgba(37, 62, 125, 0.5);
+    }
+
+    .nmc-btn-primary:active {
+        transform: scale(.97);
+    }
+
+    .nmc-btn-back {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        font-size: 11px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: .4em;
+        color: #94a3b8;
+        transition: all .3s;
+    }
+
+    .nmc-btn-back:hover {
+        color: var(--nmc-blue);
+        transform: translateX(-5px);
+    }
+
+    /* ── Upload cards ── */
+    .nmc-upload-card {
+        padding: 2rem;
+        border: 2.5px dashed #e2e8f0;
+        border-radius: 2rem;
+        background: #f8fafc;
+        transition: all .45s;
+    }
+
+    .nmc-upload-card:hover {
+        border-color: var(--nmc-blue);
+        background: white;
+        transform: scale(1.02);
+        box-shadow: 0 15px 40px -10px rgba(37, 62, 125, 0.1);
+    }
+</style>
+
+<script>
+    function goToStep(step) {
+        document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+        document.getElementById('step-' + step).classList.remove('hidden');
+
+        [1, 2, 3, 4].forEach(s => {
+            const btn = document.getElementById('step-' + s + '-btn');
+            const conn = document.getElementById('connector-' + s);
+            btn.classList.remove('active', 'completed');
+            if (conn) conn.classList.remove('active');
+            if (s < step) { btn.classList.add('completed'); if (conn) conn.classList.add('active'); }
+            else if (s === step) btn.classList.add('active');
+        });
+
+        document.getElementById('apply').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+</script>
+{% endblock %}
