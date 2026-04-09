@@ -33,9 +33,9 @@
             </div>
 
             <!-- College Logo -->
-            <div class="mb-8 mx-auto w-32 h-32 sm:w-44 sm:h-44 rounded-full border-[6px] border-[#B6E3D4]/20 shadow-[0_20px_50px_-10px_rgba(182,227,212,0.3)] overflow-hidden bg-white/10 backdrop-blur-md flex items-center justify-center animate-in zoom-in duration-700 transform hover:scale-105 transition-all">
+            <div class="mb-8 mx-auto w-32 h-32 sm:w-44 sm:h-44 rounded-full border-[6px] border-[#B6E3D4]/20 shadow-[0_20px_50px_-10px_rgba(182,227,212,0.3)] overflow-hidden bg-white/10 backdrop-blur-md flex items-center justify-center animate-in zoom-in duration-700 transform hover:scale-105 transition-all p-6">
                 {% if college.logo_url %}
-                <img src="{{ college.logo_url }}" alt="{{ college.name }} Logo" class="w-full h-full object-cover">
+                <img src="{{ college.logo_url }}" alt="{{ college.name }} Logo" class="w-full h-full object-contain">
                 {% else %}
                 <i data-lucide="graduation-cap" class="w-16 h-16 text-[#B6E3D4]"></i>
                 {% endif %}
@@ -206,6 +206,10 @@
                             <div class="nmc-field">
                                 <label class="nmc-label-text">Add-on Course</label>
                                 {{ form.addon_course }}
+                            </div>
+                            <div class="md:col-span-2 nmc-field">
+                                <label class="nmc-label-text">Reference Source</label>
+                                {{ form.source }}
                             </div>
                             <div class="md:col-span-2 nmc-field">
                                 <label class="nmc-label-text">Full Name (as per certificates)</label>
@@ -387,7 +391,7 @@
                                 <div>
                                     <h4 class="text-white font-black text-3xl mb-3">Registration Fee</h4>
                                     <p class="text-blue-200/70 font-semibold text-lg">
-                                        Non-refundable processing fee · Secured via Razorpay
+                                        Non-refundable processing fee · Payable via Google Pay / UPI QR
                                     </p>
                                 </div>
                                 <div class="text-center">
@@ -634,6 +638,24 @@
 
 <script>
     function goToStep(step) {
+        // If moving forward, validate current step
+        const currentStepEl = document.querySelector('.step-content:not(.hidden)');
+        if (currentStepEl) {
+            const currentStepMatch = currentStepEl.id.match(/\d+/);
+            if (currentStepMatch) {
+                const currentStep = parseInt(currentStepMatch[0]);
+                if (step > currentStep) {
+                    const inputs = currentStepEl.querySelectorAll('input, select, textarea');
+                    for (let i = 0; i < inputs.length; i++) {
+                        if (!inputs[i].checkValidity()) {
+                            inputs[i].reportValidity();
+                            return; // Stop and do not proceed
+                        }
+                    }
+                }
+            }
+        }
+
         document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
         document.getElementById('step-' + step).classList.remove('hidden');
 

@@ -24,9 +24,9 @@
             </div>
 
             <!-- College Logo -->
-            <div class="mb-8 mx-auto w-32 h-32 md:w-48 md:h-48 rounded-[3rem] border-8 border-white/20 shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(255,215,0,0.15)] overflow-hidden bg-white/10 backdrop-blur-md flex items-center justify-center animate-in zoom-in duration-700 transform hover:rotate-6 transition-all">
+            <div class="mb-8 mx-auto w-32 h-32 md:w-48 md:h-48 rounded-[3rem] border-8 border-white/20 shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(255,215,0,0.15)] overflow-hidden bg-white/10 backdrop-blur-md flex items-center justify-center animate-in zoom-in duration-700 transform hover:rotate-6 transition-all p-4">
                 {% if college.logo_url %}
-                <img src="{{ college.logo_url }}" alt="{{ college.name }} Logo" class="w-full h-full object-cover">
+                <img src="{{ college.logo_url }}" alt="{{ college.name }} Logo" class="w-full h-full object-contain">
                 {% else %}
                 <i data-lucide="graduation-cap" class="w-16 h-16 text-[#FFD700]"></i>
                 {% endif %}
@@ -168,6 +168,10 @@
                             <div class="space-y-6">
                                 <label class="field-label">Specialisation Elective</label>
                                 {{ form.addon_course }}
+                            </div>
+                            <div class="md:col-span-2 space-y-6">
+                                <label class="field-label">Reference Source</label>
+                                {{ form.source }}
                             </div>
                             <div class="md:col-span-2 space-y-6">
                                 <label class="field-label">Full Legal Identity (as per Certificate)</label>
@@ -579,6 +583,24 @@
 
 <script>
     function goToStep(step) {
+        // If moving forward, validate current step
+        const currentStepEl = document.querySelector('.step-content:not(.hidden)');
+        if (currentStepEl) {
+            const currentStepMatch = currentStepEl.id.match(/\d+/);
+            if (currentStepMatch) {
+                const currentStep = parseInt(currentStepMatch[0]);
+                if (step > currentStep) {
+                    const inputs = currentStepEl.querySelectorAll('input, select, textarea');
+                    for (let i = 0; i < inputs.length; i++) {
+                        if (!inputs[i].checkValidity()) {
+                            inputs[i].reportValidity();
+                            return; // Stop and do not proceed
+                        }
+                    }
+                }
+            }
+        }
+
         // Hide all contents
         document.querySelectorAll('.step-content').forEach(el => {
             el.classList.add('hidden');

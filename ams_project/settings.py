@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-tu=-p2&8%jn-x2_#aa#69!$5bc!nzvhmpby1&#6v_vt2(9ft2('
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-fallback-key-for-local-dev')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ["13.234.167.36", "127.0.0.1", "localhost", "*"]
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
 
 # Application definition
@@ -37,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
     'admission_system',
 ]
 
@@ -73,12 +79,28 @@ WSGI_APPLICATION = 'ams_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if os.getenv("USE_RDS") == "True":
+    from .db_utils import get_rds_iam_token
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv("RDS_DB_NAME", "postgres"),
+            'USER': os.getenv("RDS_USER", "postgres"),
+            'PASSWORD': get_rds_iam_token(),
+            'HOST': os.getenv("RDS_HOST"),
+            'PORT': os.getenv("RDS_PORT", "5432"),
+            'OPTIONS': {
+                'sslmode': 'require',
+            },
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -128,6 +150,32 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'cre_dashboard'
 LOGOUT_REDIRECT_URL = 'home'
 
+# UPI Settings
+UPI_ID = os.getenv('UPI_ID', 'finance@institution.com')
+UPI_PAYEE_NAME = os.getenv('UPI_PAYEE_NAME', 'AdmissionPro')
+# AWS S3 Settings
+# IMPORTANT: Replace these placeholders with your actual AWS credentials
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME', 'ap-south-1')
+AWS_S3_CUSTOM_DOMAIN = None
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_QUERYSTRING_AUTH = True
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_ADDRESSING_STYLE = 'virtual'
 
-RAZORPAY_KEY_ID = "rzp_test_SSbu6Exi5WgpL7"
-RAZORPAY_KEY_SECRET = "dCLRYjojGrplIXRWe1DFhuUx"
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
+# Media Files
+# No hardcoded MEDIA_URL prefix - let django-storages generate authenticated S3 URLs
+# MEDIA_ROOT is not used by S3 storage but kept for reference
+MEDIA_ROOT = BASE_DIR / 'media'

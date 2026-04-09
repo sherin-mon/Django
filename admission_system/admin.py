@@ -1,7 +1,7 @@
 import csv
 from django.http import HttpResponse
 from django.contrib import admin
-from .models import College, Course, CREProfile, Student, Application
+from .models import College, Course, CREProfile, FinanceProfile, Student, Application, ApplicationSource, AddonCourse
 
 @admin.action(description="Export Selected as CSV")
 def export_as_csv(modeladmin, request, queryset):
@@ -46,3 +46,16 @@ class ApplicationAdmin(admin.ModelAdmin):
     list_filter = ('college', 'referred_by', 'applied_at')
     search_fields = ('student__name', 'referred_by__user__username')
     actions = [export_as_csv]
+
+@admin.register(FinanceProfile)
+class FinanceProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'phone')
+    search_fields = ('user__username',)
+
+@admin.register(ApplicationSource)
+class ApplicationSourceAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
+@admin.register(AddonCourse)
+class AddonCourseAdmin(admin.ModelAdmin):
+    list_display = ('name', 'course')

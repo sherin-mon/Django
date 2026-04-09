@@ -22,12 +22,13 @@ class CRERegistrationForm(forms.ModelForm):
 import re
 from django.core.validators import RegexValidator
 
-from .models import CREProfile, Application, Course, Student
+from .models import CREProfile, Application, Course, Student, ApplicationSource
 
 class StudentAdmissionForm(forms.ModelForm):
     # Additional fields from Application model or custom ones
-    addon_course = forms.CharField(max_length=255, required=False, label="Add-on Course")
+    addon_course = forms.ChoiceField(choices=[('', 'Select Add-on Course')], required=False, label="Add-on Course")
     course = forms.ModelChoiceField(queryset=Course.objects.none(), required=True, label="Main Course")
+    source = forms.ModelChoiceField(queryset=ApplicationSource.objects.all(), required=True, label="How did you hear about us?", empty_label="Select Source")
     
     # Documents (to be handled in Application model)
     doc_10th = forms.FileField(required=True, label="10th Marksheet")
@@ -66,6 +67,22 @@ class StudentAdmissionForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         if college:
             self.fields['course'].queryset = college.courses.all()
+        
+        # If we have course data in POST, update addon_course choices to pass validation
+        if 'course' in self.data:
+            try:
+                course_id = int(self.data.get('course'))
+                from .models import AddonCourse
+                addons = AddonCourse.objects.filter(course_id=course_id)
+                self.fields['addon_course'].choices = [('', 'Select Add-on Course')] + [(a.name, a.name) for a in addons]
+            except (ValueError, TypeError):
+                pass
+        elif self.initial.get('course'):
+             # Handle initial data if any
+             course = self.initial.get('course')
+             from .models import AddonCourse
+             addons = AddonCourse.objects.filter(course=course)
+             self.fields['addon_course'].choices = [('', 'Select Add-on Course')] + [(a.name, a.name) for a in addons]
         
         # Add Tailwind classes to all fields
         for field_name, field in self.fields.items():

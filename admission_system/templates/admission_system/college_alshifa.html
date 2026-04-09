@@ -24,9 +24,9 @@
             </div>
 
             <!-- College Logo -->
-            <div class="mb-8 mx-auto w-28 h-28 md:w-40 md:h-40 rounded-full border-4 border-white/20 shadow-[0_20px_50px_-10px_rgba(186,142,35,0.4)] overflow-hidden bg-white/10 backdrop-blur-md flex items-center justify-center animate-in zoom-in duration-700 transform hover:scale-105 transition-all">
+            <div class="mb-8 mx-auto w-28 h-28 md:w-40 md:h-40 rounded-full border-4 border-white/20 shadow-[0_20px_50px_-10px_rgba(186,142,35,0.4)] overflow-hidden bg-white/10 backdrop-blur-md flex items-center justify-center animate-in zoom-in duration-700 transform hover:scale-105 transition-all p-3">
                 {% if college.logo_url %}
-                <img src="{{ college.logo_url }}" alt="{{ college.name }} Logo" class="w-full h-full object-cover">
+                <img src="{{ college.logo_url }}" alt="{{ college.name }} Logo" class="w-full h-full object-contain">
                 {% else %}
                 <i data-lucide="graduation-cap" class="w-14 h-14 text-secondary"></i>
                 {% endif %}
@@ -173,6 +173,10 @@
                             <div class="space-y-4">
                                 <label class="label-heading">Add-on Specialization</label>
                                 {{ form.addon_course }}
+                            </div>
+                            <div class="md:col-span-2 space-y-4">
+                                <label class="label-heading">Reference Source</label>
+                                {{ form.source }}
                             </div>
                             <div class="md:col-span-2 space-y-4">
                                 <label class="label-heading">Full Legal Name</label>
@@ -353,7 +357,7 @@
                                         Fee</h4>
                                     <p class="text-white/60 font-bold text-xl leading-relaxed">
                                         Amount: <span class="text-secondary">₹1,500</span> (Non-refundable)<br />
-                                        Secured by Razorpay Encryption.
+                                        Payable via Google Pay / UPI QR.
                                     </p>
                                 </div>
                                 <div class="shrink-0 space-y-2">
@@ -552,6 +556,24 @@
 
 <script>
     function goToStep(step) {
+        // If moving forward, validate current step
+        const currentStepEl = document.querySelector('.step-content:not(.hidden)');
+        if (currentStepEl) {
+            const currentStepMatch = currentStepEl.id.match(/\d+/);
+            if (currentStepMatch) {
+                const currentStep = parseInt(currentStepMatch[0]);
+                if (step > currentStep) {
+                    const inputs = currentStepEl.querySelectorAll('input, select, textarea');
+                    for (let i = 0; i < inputs.length; i++) {
+                        if (!inputs[i].checkValidity()) {
+                            inputs[i].reportValidity();
+                            return; // Stop and do not proceed
+                        }
+                    }
+                }
+            }
+        }
+
         // Hide all steps
         document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
 

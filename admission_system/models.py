@@ -25,6 +25,13 @@ class Course(models.Model):
     def __str__(self):
         return f"{self.name} - {self.college.name}"
 
+class AddonCourse(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='addon_courses')
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.name} (Addon for {self.course.name})"
+
 class CREProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='cre_profile')
     cre_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
@@ -34,6 +41,13 @@ class CREProfile(models.Model):
     
     def __str__(self):
         return f"CRE: {self.user.username}"
+
+class FinanceProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='finance_profile')
+    phone = models.CharField(max_length=15, blank=True)
+    
+    def __str__(self):
+        return f"Finance Manager: {self.user.username}"
 
 class Student(models.Model):
     GENDER_CHOICES = [('M', 'Male'), ('F', 'Female'), ('O', 'Other')]
@@ -68,15 +82,28 @@ class Student(models.Model):
     def __str__(self):
         return self.name
 
+class ApplicationSource(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    
+    def __str__(self):
+        return self.name
+
 from django.core.exceptions import ValidationError
 
 class Application(models.Model):
-    PAYMENT_STATUS_CHOICES = [('Pending', 'Pending'), ('Success', 'Success'), ('Failed', 'Failed')]
+    PAYMENT_STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Pending Verification', 'Pending Verification'),
+        ('Success', 'Success'),
+        ('Failed', 'Failed'),
+        ('Rejected', 'Rejected')
+    ]
     
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='applications')
     college = models.ForeignKey(College, on_delete=models.CASCADE, related_name='applications')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='applications')
     addon_course = models.CharField(max_length=255, blank=True, null=True)
+    source = models.ForeignKey(ApplicationSource, on_delete=models.SET_NULL, null=True, blank=True, related_name='applications')
     referred_by = models.ForeignKey(CREProfile, on_delete=models.SET_NULL, null=True, related_name='referrals')
     applied_at = models.DateTimeField(auto_now_add=True)
     
@@ -87,9 +114,9 @@ class Application(models.Model):
     doc_aadhar = models.FileField(upload_to='documents/aadhar/', null=True, blank=True)
     
     # Payment
-    payment_status = models.CharField(max_length=20, choices=PAYMENT_STATUS_CHOICES, default='Pending')
-    razorpay_order_id = models.CharField(max_length=100, blank=True, null=True)
-    razorpay_payment_id = models.CharField(max_length=100, blank=True, null=True)
+    payment_status = models.CharField(max_length=25, choices=PAYMENT_STATUS_CHOICES, default='Pending')
+    transaction_id = models.CharField(max_length=100, blank=True, null=True, unique=True, help_text="Google Pay Transaction Ref ID")
+    payment_screenshot = models.ImageField(upload_to='payments/screenshots/', null=True, blank=True, help_text="Screenshot of the successful payment")
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
     class Meta:

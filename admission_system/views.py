@@ -12,6 +12,18 @@ from .forms import CRERegistrationForm, StudentAdmissionForm
 from .models import CREProfile, College, Application, Student, Course
 import csv
 from django.http import HttpResponse
+import boto3
+from django.conf import settings
+from django.utils.text import slugify
+from django.http import JsonResponse
+from .models import AddonCourse
+
+def get_addon_courses(request):
+    course_id = request.GET.get('course_id')
+    if course_id:
+        addons = AddonCourse.objects.filter(course_id=course_id).values('id', 'name')
+        return JsonResponse(list(addons), safe=False)
+    return JsonResponse([], safe=False)
 
 class SuperuserRequiredMixin(UserPassesTestMixin):
     def test_func(self):
@@ -169,6 +181,79 @@ class AdminStudentDetailView(SuperuserRequiredMixin, TemplateView):
         })
         return context
 
+@login_required
+def download_application_document(request, app_id, doc_field):
+    if not request.user.is_superuser:
+        messages.error(request, "Permission denied.")
+        return redirect('home')
+        
+    application = get_object_or_404(Application, id=app_id)
+    doc_file = getattr(application, doc_field, None)
+    
+    if not doc_file or not hasattr(doc_file, 'name') or not doc_file.name:
+        messages.error(request, "File not found.")
+        return redirect('admin_student_detail', app_id=app_id)
+
+    # Friendly name for the download
+    ext = doc_file.name.split('.')[-1]
+    name_slug = slugify(application.student.name)
+    doc_label = doc_field.replace('doc_', '').replace('_', ' ')
+    filename = f"{name_slug}_{doc_label}.{ext}"
+
+    from django.core.files.storage import default_storage
+    try:
+        url = default_storage.url(
+            doc_file.name, 
+            parameters={'ResponseContentDisposition': f'attachment; filename="{filename}"'}
+        )
+        return redirect(url)
+    except Exception as e:
+        messages.error(request, f"Error generating download link: {e}")
+        return redirect('admin_student_detail', app_id=app_id)
+
+class FinanceRequiredMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_superuser or hasattr(self.request.user, 'finance_profile')
+
+class FinanceDashboardView(FinanceRequiredMixin, TemplateView):
+    template_name = 'admission_system/finance_dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Fetch pending apps
+        pending_apps = Application.objects.filter(payment_status='Pending Verification').select_related('student', 'college', 'course')
+        
+        # History
+        history_apps = Application.objects.exclude(payment_status__in=['Pending', 'Pending Verification']).select_related('student', 'college', 'course').order_by('-applied_at')[:50]
+        
+        context.update({
+            'pending_apps': pending_apps,
+            'history_apps': history_apps,
+            'pending_count': pending_apps.count(),
+            'is_dashboard': True,
+            'total_verified': Application.objects.filter(payment_status='Success').count(),
+            'total_revenue': sum(app.amount_paid for app in Application.objects.filter(payment_status='Success'))
+        })
+        return context
+
+class VerifyPaymentActionView(FinanceRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        app_id = request.POST.get('app_id')
+        action = request.POST.get('action') # 'approve' or 'reject'
+        
+        app = get_object_or_404(Application, id=app_id)
+        
+        if action == 'approve':
+            app.payment_status = 'Success'
+            app.amount_paid = request.POST.get('amount_paid', 1500.00)
+            messages.success(request, f"Payment verified successfully for {app.student.name}")
+        elif action == 'reject':
+            app.payment_status = 'Rejected'
+            messages.warning(request, f"Payment rejected for {app.student.name}")
+            
+        app.save()
+        return redirect('finance_dashboard')
+
 class AdminExportCSVView(SuperuserRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         export_type = request.GET.get('type', 'students')
@@ -267,6 +352,8 @@ class CRELoginView(LoginView):
     def get_success_url(self):
         if self.request.user.is_superuser:
             return reverse_lazy('admin_dashboard')
+        if hasattr(self.request.user, 'finance_profile'):
+            return reverse_lazy('finance_dashboard')
         return reverse_lazy('cre_dashboard')
 
 class DashboardView(LoginRequiredMixin, TemplateView):
@@ -309,6 +396,9 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
+            if hasattr(request.user, 'finance_profile'):
+                return redirect('finance_dashboard')
+            
             cre_profile = getattr(request.user, 'cre_profile', None)
             if cre_profile and not cre_profile.is_approved and not request.user.is_superuser:
                 from django.contrib.auth import logout
@@ -323,15 +413,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         return super().dispatch(request, *args, **kwargs)
 
 from .forms import StudentAdmissionForm
-
-import razorpay
-from django.conf import settings
-from django.views.decorators.csrf import csrf_exempt
-
-# Razorpay Client Initialization (Use settings for production)
-RAZORPAY_KEY_ID = getattr(settings, 'RAZORPAY_KEY_ID', 'rzp_test_placeholder_id')
-RAZORPAY_KEY_SECRET = getattr(settings, 'RAZORPAY_KEY_SECRET', 'placeholder_secret')
-client = razorpay.Client(auth=(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET))
+from .models import FinanceProfile
 
 def apply_admission(request, college_slug, cre_id):
     college = get_object_or_404(College, slug=college_slug)
@@ -379,6 +461,7 @@ def apply_admission(request, college_slug, cre_id):
                     student=student, college=college, course=course,
                     defaults={
                         'addon_course': form.cleaned_data['addon_course'],
+                        'source': form.cleaned_data['source'],
                         'referred_by': referrer,
                         'doc_10th': form.cleaned_data['doc_10th'],
                         'doc_11th': form.cleaned_data['doc_11th'],
@@ -388,30 +471,9 @@ def apply_admission(request, college_slug, cre_id):
                     }
                 )
                 
-                # 4. Initialize Razorpay Order (1500 INR = 150000 Paise)
-                amount = 1500 * 100 
-                order_data = {
-                    'amount': amount,
-                    'currency': 'INR',
-                    'receipt': f'receipt_app_{app.id}',
-                    'payment_capture': 1
-                }
                 
-                try:
-                    razorpay_order = client.order.create(data=order_data)
-                    app.razorpay_order_id = razorpay_order['id']
-                    app.save()
-                    
-                    return render(request, 'admission_system/payment_gateway.html', {
-                        'order_id': razorpay_order['id'],
-                        'amount': amount,
-                        'key_id': RAZORPAY_KEY_ID,
-                        'student': student,
-                        'college': college,
-                        'app_id': app.id
-                    })
-                except Exception as e:
-                    messages.error(request, f"Payment Gateway Error: {str(e)}")
+                # 4. Redirect to manual payment page
+                return redirect('manual_payment', app_id=app.id)
         else:
             for field, errors in form.errors.items():
                 for error in errors:
@@ -432,41 +494,42 @@ def apply_admission(request, college_slug, cre_id):
         'form': StudentAdmissionForm(college=college)
     })
 
-@csrf_exempt
-def payment_callback(request):
+def manual_payment(request, app_id):
+    app = get_object_or_404(Application, id=app_id)
+    if app.payment_status in ['Success', 'Pending Verification']:
+        messages.info(request, "Your payment is already processed or under verification.")
+        # Redirect back to the college landing page instead of dashboard
+        return redirect('apply_admission', college_slug=app.college.slug, cre_id=app.referred_by.cre_id)
+
     if request.method == "POST":
-        try:
-            payment_id = request.POST.get('razorpay_payment_id', '')
-            order_id = request.POST.get('razorpay_order_id', '')
-            signature = request.POST.get('razorpay_signature', '')
-            
-            params_dict = {
-                'razorpay_order_id': order_id,
-                'razorpay_payment_id': payment_id,
-                'razorpay_signature': signature
-            }
-            
-            # Verify Signature
-            client.utility.verify_payment_signature(params_dict)
-            
-            # Update Application
-            app = Application.objects.get(razorpay_order_id=order_id)
-            app.payment_status = 'Success'
-            app.razorpay_payment_id = payment_id
-            app.amount_paid = 1500.00
+        transaction_id = request.POST.get('transaction_id')
+        payment_screenshot = request.FILES.get('payment_screenshot')
+        
+        if transaction_id and payment_screenshot:
+            # Check for duplicate transaction ID
+            if Application.objects.filter(transaction_id=transaction_id).exclude(id=app.id).exists():
+                messages.error(request, "This Transaction ID has already been used. Please provide the unique ID for this payment.")
+                return render(request, 'admission_system/manual_payment.html', {
+                    'app': app, 
+                    'college': app.college,
+                    'upi_id': settings.UPI_ID,
+                    'upi_payee_name': settings.UPI_PAYEE_NAME
+                })
+
+            app.transaction_id = transaction_id
+            app.payment_screenshot = payment_screenshot
+            app.payment_status = 'Pending Verification'
             app.save()
-            
             return render(request, 'admission_system/success.html', {'college': app.college, 'app': app})
+        else:
+            messages.error(request, "Please provide both Transaction ID and the Payment Screenshot.")
             
-        except Exception as e:
-            order_id = request.POST.get('razorpay_order_id', '')
-            if order_id:
-                app = Application.objects.filter(razorpay_order_id=order_id).first()
-                if app:
-                    app.payment_status = 'Failed'
-                    app.save()
-            return render(request, 'admission_system/payment_failed.html', {'error': str(e)})
-    return redirect('home')
+    return render(request, 'admission_system/manual_payment.html', {
+        'app': app, 
+        'college': app.college,
+        'upi_id': settings.UPI_ID,
+        'upi_payee_name': settings.UPI_PAYEE_NAME
+    })
 
 def home(request):
     if request.user.is_authenticated and hasattr(request.user, 'cre_profile'):

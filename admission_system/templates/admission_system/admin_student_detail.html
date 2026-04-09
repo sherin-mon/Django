@@ -234,7 +234,7 @@
 
                     <div class="space-y-4">
                         {% if app.doc_10th %}
-                        <a href="{{ app.doc_10th.url }}" target="_blank" class="group flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700 hover:border-blue-300 hover:bg-blue-50 transition-all">
+                        <a href="{% url 'admin_student_download' app.id 'doc_10th' %}" class="group flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700 hover:border-blue-300 hover:bg-blue-50 transition-all">
                             <div class="flex items-center gap-3">
                                 <i data-lucide="file-text" class="text-blue-500 group-hover:scale-110 transition-transform"></i>
                                 <span class="text-sm font-bold text-slate-700 dark:text-slate-300">10th Grade Marksheet</span>
@@ -244,7 +244,7 @@
                         {% endif %}
 
                         {% if app.doc_11th %}
-                        <a href="{{ app.doc_11th.url }}" target="_blank" class="group flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700 hover:border-blue-300 hover:bg-blue-50 transition-all">
+                        <a href="{% url 'admin_student_download' app.id 'doc_11th' %}" class="group flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700 hover:border-blue-300 hover:bg-blue-50 transition-all">
                             <div class="flex items-center gap-3">
                                 <i data-lucide="file-text" class="text-blue-500 group-hover:scale-110 transition-transform"></i>
                                 <span class="text-sm font-bold text-slate-700 dark:text-slate-300">11th Grade Marksheet</span>
@@ -254,7 +254,7 @@
                         {% endif %}
 
                         {% if app.doc_12th %}
-                        <a href="{{ app.doc_12th.url }}" target="_blank" class="group flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700 hover:border-blue-300 hover:bg-blue-50 transition-all">
+                        <a href="{% url 'admin_student_download' app.id 'doc_12th' %}" class="group flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700 hover:border-blue-300 hover:bg-blue-50 transition-all">
                             <div class="flex items-center gap-3">
                                 <i data-lucide="file-text" class="text-blue-500 group-hover:scale-110 transition-transform"></i>
                                 <span class="text-sm font-bold text-slate-700 dark:text-slate-300">12th Grade Marksheet</span>
@@ -264,7 +264,7 @@
                         {% endif %}
 
                         {% if app.doc_aadhar %}
-                        <a href="{{ app.doc_aadhar.url }}" target="_blank" class="group flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700 hover:border-purple-300 hover:bg-purple-50 transition-all">
+                        <a href="{% url 'admin_student_download' app.id 'doc_aadhar' %}" class="group flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700 hover:border-purple-300 hover:bg-purple-50 transition-all">
                             <div class="flex items-center gap-3">
                                 <i data-lucide="credit-card" class="text-purple-500 group-hover:scale-110 transition-transform"></i>
                                 <span class="text-sm font-bold text-slate-700 dark:text-slate-300">Aadhar Artifact</span>
@@ -280,3 +280,4 @@
     </div>
 </div>
 {% endblock %}
+
